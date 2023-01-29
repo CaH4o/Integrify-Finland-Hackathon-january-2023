@@ -1,0 +1,53 @@
+@use './src/utility/variables';
+
+.header {
+  height: 100vh;
+  padding: 35px 0;
+  position: fixed;
+  width: 120px;
+  top: 0;
+  left: 0;
+  background-color: variables.$main-black;
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & img {
+      object-fit: cover;
+      height: 80px;
+      width: 80px;
+      border-radius: 50%;
+      margin-bottom: 35px;
+    }
+
+    &_navbar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      &-item {
+        text-decoration: none;
+        color: variables.$main-white;
+        transition: all .1s linear;
+        text-align: center;
+
+        & h4 {
+          font-size: 15px;
+        }
+        & svg {
+          font-size: 40px!important;
+        }
+
+        &:not(:last-child) {
+          margin-bottom: 25px;
+        }
+
+        &:hover {
+          color: variables.$main-orange;
+        }
+      }
+    }
+  }
+}

@@ -1,14 +1,33 @@
+@use './src/utility/variables';
+
 .kanban-task {
-  border: 1px solid #56CCF2;
+  border: 1px solid variables.$main-blue-light;
   border-radius: 15px;
   width: 420px;
   overflow: scroll;
   max-height: 300px;
-  padding: 20px;
+  padding: 15px;
+  white-space: normal;
+  cursor: grab;
+  position: relative;
 
+  &_edit {
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    fill: rgba(79, 79, 79, 0.35)!important;
+    cursor: pointer;
+    font-size: 28px!important;
+    transition: all .1s linear;
+
+    &:hover {
+      fill: variables.$main-dark-grey!important;
+    }
+  }
   &_item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: flex-start;
 
     &:not(:last-child) {
       margin-bottom: 25px;
@@ -28,6 +47,16 @@
       font-weight: 500;
       border-radius: 10px;
     }
+
+    &-title {
+      font-weight: 500;
+      color: variables.$main-black;
+    }
+
+    &-description {
+      font-size: 14px;
+      margin-bottom: 10px!important;
+    }
   }
 
   & h4 {
@@ -41,5 +70,9 @@
   &_item:nth-child(2) h4,
   {
     font-size: 13px;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 15px;
   }
 }

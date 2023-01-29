@@ -1,0 +1,36 @@
+@use './src/utility/variables';
+
+.kanban-column {
+  display: flex;
+  flex-direction: column;
+  width: 420px;
+  position: relative;
+  margin-right: 20px;
+
+  &_title {
+    text-align: center;
+    padding: 8px 0;
+    border-radius: 5px;
+    color: variables.$main-white;
+    margin-bottom: 10px;
+  }
+
+  & button {
+    cursor: pointer;
+    padding: 0 15px;
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    max-width: 250px;
+    margin-bottom: 10px;
+
+    & svg {
+      font-size: 20px;
+    }
+  }
+
+  &:last-child {
+    margin-right: 5px;
+  }
+}

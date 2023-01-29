@@ -1,9 +1,15 @@
 import './_App.scss'
-import KanbanTaskCard from "../KanbanTaskCard/KanbanTaskCard";
+import Header from "../Header/Header";
+import KanbanBoard from "../KanbanBoard/KanbanBoard";
 
 const App = () => {
     return (
-        <KanbanTaskCard/>
+        <>
+            <Header/>
+            <div style={{marginLeft: '125px'}}>
+                <KanbanBoard/>
+            </div>
+        </>
     )
 }
 

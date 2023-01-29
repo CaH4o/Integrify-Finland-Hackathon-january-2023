@@ -1,0 +1,22 @@
+@use './src/utility/variables';
+
+.kanban-board {
+  width: calc(100vw - 125px);
+  height: 100vh;
+  padding: 10px 10px 0 0;
+  overflow: scroll;
+  white-space: nowrap;
+  display: flex;
+
+  &_add {
+    height: 45px;
+    padding: 5px 9px;
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity .1s linear;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
