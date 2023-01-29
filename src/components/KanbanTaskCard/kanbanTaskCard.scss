@@ -1,0 +1,45 @@
+.kanban-task {
+  border: 1px solid #56CCF2;
+  border-radius: 15px;
+  width: 420px;
+  overflow: scroll;
+  max-height: 300px;
+  padding: 20px;
+
+  &_item {
+    display: flex;
+    align-items: center;
+
+    &:not(:last-child) {
+      margin-bottom: 25px;
+    }
+
+    &:first-child {
+      margin-bottom: 5px;
+    }
+
+    &:nth-child(2) {
+      margin-bottom: 15px;
+    }
+
+    & #task-priority {
+      padding: 7px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 10px;
+    }
+  }
+
+  & h4 {
+    margin-right: 20px;
+    width: 90px;
+    font-weight: 400;
+    font-size: 15px;
+  }
+
+  &_item:nth-child(2) span,
+  &_item:nth-child(2) h4,
+  {
+    font-size: 13px;
+  }
+}
