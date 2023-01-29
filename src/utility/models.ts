@@ -14,6 +14,11 @@ export interface User {
   email: string;
 }
 
+export interface UserState extends User {
+  loading: boolean;
+  error: boolean;
+}
+
 export interface Task {
   id: string;
   createdDate: string;
