@@ -5,7 +5,7 @@ import {Button} from "@mui/material";
 import {TaskData} from "../../utility/models";
 import {Droppable} from "react-beautiful-dnd";
 import KanbanTaskCard from "../KanbanTaskCard/KanbanTaskCard";
-import React from "react";
+import React, {useState} from "react";
 
 interface KanbanColumnProps {
     color: ColumnColors,
@@ -24,7 +24,7 @@ const KanbanColumn = (props:KanbanColumnProps) => {
                     <AddIcon/>
                 </Button>
                 <Droppable droppableId={id}>
-                    {(provided) => (
+                    {(provided, snapshot) => (
                         <div className='kanban-column_task-list' ref={provided.innerRef}>
                                 {tasks.map((task, index) => {
                                     const {id} = task;

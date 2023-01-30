@@ -1,7 +1,7 @@
 import './kanbanboard.scss';
 import KanbanColumn from "../KanbanColumn/KanbanColumn";
 import {Button} from "@mui/material";
-import {DragDropContext} from "react-beautiful-dnd";
+import {DragDropContext, Droppable} from "react-beautiful-dnd";
 import fakeData from "../../fakeData/fakeData";
 import {ColumnData, TaskData} from "../../utility/models";
 import {useState} from "react";
@@ -88,15 +88,22 @@ const KanbanBoard = () => {
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>
-            <div className='kanban-board'>
-                {data.columnOrder.map((columnId:string) => {
-                    const column:ColumnData = allColumns[columnId];
-                    const tasks:TaskData[] = column.taskIds.map((taskId:string) => allTasks[taskId]);
+            <Droppable
+                droppableId={'all-columns'}
+                direction={"horizontal"}
+                type={"column"}>
+                {provided => (
+                    <div className='kanban-board' ref={provided.innerRef}>
+                        {data.columnOrder.map((columnId:string) => {
+                            const column:ColumnData = allColumns[columnId];
+                            const tasks:TaskData[] = column.taskIds.map((taskId:string) => allTasks[taskId]);
 
-                    return <KanbanColumn color={column.color} title={column.title} tasks={tasks} key={column.id} id={column.id}/>
-                })}
-                <Button variant="outlined" className='kanban-board_add'>New Column</Button>
-            </div>
+                            return <KanbanColumn color={column.color} title={column.title} tasks={tasks} key={column.id} id={column.id}/>
+                        })}
+                        <Button variant="outlined" className='kanban-board_add'>New Column</Button>
+                    </div>
+                )}
+            </Droppable>
         </DragDropContext>
     )
 }
