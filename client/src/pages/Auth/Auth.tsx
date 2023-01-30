@@ -28,7 +28,6 @@ const Auth = () => {
         setForgotPassword(true);
     }
   return (
-<<<<<<< HEAD:client/src/pages/Auth/Auth.tsx
     <div className="area" >
         <Box className='modal-login'>
             <SignIn showSignUp={showSignUp} showForgotPassword={showForgotPassword} signIn={signIn}/>
@@ -37,16 +36,6 @@ const Auth = () => {
             <SignUp showSignIn={showSignIn} signUp={signUp}/>
         </Box>
         <Box className='modal-login'>
-=======
-    <>
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 20}}>
-            <SignIn showSignUp={showSignUp} showForgotPassword={showForgotPassword} signIn={signIn}/>
-        </Box>
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 20}}>
-            <SignUp showSignIn={showSignIn} signUp={signUp}/>
-        </Box>
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 20}}>
->>>>>>> cbffd26f0e0eab402f1257b185a718147398387d:client/src/pages/Auth.tsx
             <ForgotPassword showSignIn={showSignIn} forgotPassword={forgotPassword}/>
         </Box>
         <ul className="circles">
@@ -61,8 +50,7 @@ const Auth = () => {
             <li></li>
             <li></li>
         </ul>
-    </div>
-  )
+    </div>)
 }
 
 export default Auth
