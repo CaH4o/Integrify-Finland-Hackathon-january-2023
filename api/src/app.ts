@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { connectDatabase } from './config/db';
 import dev from './config';
+import userRouter from './routers/user.router';
 
 const app = express();
 
@@ -14,6 +15,9 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// set up routers
+app.use('/api/v1/users', userRouter);
 
 // run server
 app.listen(dev.app.port, async () => {
