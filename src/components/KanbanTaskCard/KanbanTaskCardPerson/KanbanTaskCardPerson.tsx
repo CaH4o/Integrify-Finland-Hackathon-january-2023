@@ -1,12 +1,22 @@
 import './kanbanTaskCardPerson.scss';
-const KanbanTaskCardPerson = () => {
+
+interface KanbanTaskCardPersonProps {
+    person: {
+        avatar: string,
+        name: string,
+        position:string,
+        email: string,
+    }
+}
+const KanbanTaskCardPerson = (props:KanbanTaskCardPersonProps) => {
+    const {avatar, name, position, email} = props.person;
     return (
         <div className='kanban-task_person'>
-            <img className='kanban-task_person-image' src="./photo-1438761681033-6461ffad8d80.jpg" alt="avatar"/>
+            <img className='kanban-task_person-image' src={`${avatar}`} alt="avatar"/>
             <div className='kanban-task_person-content'>
-                <p className='kanban-task_person-content_name'>Jenny Wilson</p>
-                <p className='kanban-task_person-content_position'>Marketing</p>
-                <p className='kanban-task_person-content_email'>debbie.baker@example.com</p>
+                <p className='kanban-task_person-content_name'>{name}</p>
+                <p className='kanban-task_person-content_position'>{position}</p>
+                <p className='kanban-task_person-content_email'>{email}</p>
             </div>
         </div>
     )

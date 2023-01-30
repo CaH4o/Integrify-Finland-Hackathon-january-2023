@@ -1,15 +1,16 @@
 @use './src/utility/variables';
 
 .kanban-task {
-  border: 1px solid variables.$main-blue-light;
   border-radius: 15px;
-  width: 420px;
+  width: 406px;
   overflow: scroll;
   max-height: 300px;
   padding: 15px;
   white-space: normal;
   cursor: grab;
   position: relative;
+  z-index: 10;
+  background-color: #fff;
 
   &_edit {
     position: absolute;
@@ -33,12 +34,12 @@
       margin-bottom: 25px;
     }
 
-    &:first-child {
+    &:nth-child(2){
       margin-bottom: 5px;
     }
 
-    &:nth-child(2) {
-      margin-bottom: 15px;
+    &:nth-child(3) {
+      margin-bottom: 10px;
     }
 
     & #task-priority {
@@ -66,8 +67,8 @@
     font-size: 15px;
   }
 
-  &_item:nth-child(2) span,
-  &_item:nth-child(2) h4,
+  &_item:nth-child(3) p,
+  &_item:nth-child(3) h4,
   {
     font-size: 13px;
   }

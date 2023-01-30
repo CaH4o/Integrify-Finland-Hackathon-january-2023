@@ -3,7 +3,9 @@
 .kanban-column {
   display: flex;
   flex-direction: column;
-  width: 420px;
+  align-items: center;
+  min-width: 420px;
+  max-width: 420px;
   position: relative;
   margin-right: 20px;
 
@@ -13,6 +15,7 @@
     border-radius: 5px;
     color: variables.$main-white;
     margin-bottom: 10px;
+    width: 100%;
   }
 
   & button {

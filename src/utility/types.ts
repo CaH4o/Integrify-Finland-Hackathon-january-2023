@@ -8,3 +8,4 @@ export enum ColumnColors {
     Purple = '#9B51E0',
     Grey = '#4F4F4F',
 }
+
