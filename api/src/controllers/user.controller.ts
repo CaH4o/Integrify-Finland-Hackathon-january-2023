@@ -27,6 +27,7 @@ export const registerUser = async (
     // assign data to user model
     const user = new User({
       email,
+      password: hashPassword,
     });
 
     // svae to database
@@ -36,7 +37,7 @@ export const registerUser = async (
     return res.status(200).send({
       success: true,
       message: 'User registered',
-      user,
+      user: { email: user.email },
     });
   } catch (error) {
     // handle error
