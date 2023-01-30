@@ -9,6 +9,9 @@ const dev = {
   app: {
     port: process.env.SERVER_PORT,
   },
+  jwt: {
+    access: process.env.JWT_ACCESS,
+  },
 };
 
 export default dev;
