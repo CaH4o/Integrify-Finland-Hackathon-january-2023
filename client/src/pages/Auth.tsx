@@ -1,8 +1,8 @@
 import { Box } from '@mui/material'
 import React, { useState } from 'react'
 import ForgotPassword from '../components/ForgotPassword/ForgotPassword'
-import SignIn from '../components/SignIn/SignIn'
-import SignUp from '../components/SignUp/SignUp'
+import SignIn from "../../client/src/components/SignIn/SignIn";
+import SignUp from "../../client/src/components/SignUp/SignUp";
 
 const Auth = () => {
     const [signIn, setSignIn] = useState<boolean>(true);
@@ -29,16 +29,15 @@ const Auth = () => {
   return (
     <>
         <Box sx={{ display: "flex", justifyContent: "center", ml: "200px"}}>
-    <SignIn showSignUp={showSignUp} showForgotPassword={showForgotPassword} signIn={signIn}/>
-    </Box>
-    <Box sx={{ display: "flex", justifyContent: "center", ml: "200px"}}>
-    <SignUp showSignIn={showSignIn} signUp={signUp}/>
-    </Box>
-    <Box sx={{ display: "flex", justifyContent: "center", ml: "200px"}}>
-    <ForgotPassword showSignIn={showSignIn} forgotPassword={forgotPassword}/>
-    </Box>
+            <SignIn showSignUp={showSignUp} showForgotPassword={showForgotPassword} signIn={signIn}/>
+        </Box>
+        <Box sx={{ display: "flex", justifyContent: "center", ml: "200px"}}>
+            <SignUp showSignIn={showSignIn} signUp={signUp}/>
+        </Box>
+        <Box sx={{ display: "flex", justifyContent: "center", ml: "200px"}}>
+            <ForgotPassword showSignIn={showSignIn} forgotPassword={forgotPassword}/>
+        </Box>
     </>
-
   )
 }
 
