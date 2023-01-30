@@ -115,8 +115,9 @@ const KanbanBoard = () => {
 
                             return <KanbanColumn index={index} color={column.color} title={column.title} tasks={tasks} key={column.id} id={column.id}/>
                         })}
-                        <Button variant="outlined" className='kanban-board_add'>New Column</Button>
                         {provided.placeholder}
+                        <Button variant="outlined" className='kanban-board_add'>New Column</Button>
+
                     </div>
                 )}
             </Droppable>
