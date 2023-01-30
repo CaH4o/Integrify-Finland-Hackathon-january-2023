@@ -11,6 +11,7 @@
   position: relative;
   z-index: 10;
   background-color: #fff;
+  margin-bottom: 15px;
 
   &_edit {
     position: absolute;
@@ -71,9 +72,5 @@
   &_item:nth-child(3) h4,
   {
     font-size: 13px;
-  }
-
-  &:not(:last-child) {
-    margin-bottom: 15px;
   }
 }
