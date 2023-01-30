@@ -7,9 +7,11 @@
     gap: 20px;
     border-radius: 4px;
     font-size: 80%;
+    text-align: center;
   
     .signup__heading {
       color: white;
+      margin-top: 40px;
     }
   
     .singup__email, .signup__password {
@@ -27,7 +29,7 @@
     }
     
     .signup__btn {
-      width: 220px;
+      width: 200px;
       align-self: center;
       outline: none;
       border: none;
