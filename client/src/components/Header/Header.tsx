@@ -9,15 +9,15 @@ const Header = () => {
             <div className="header-content">
                 <img src="./photo-1438761681033-6461ffad8d80.jpg" alt="avatar"/>
                 <nav className="header-content_navbar">
-                    <a href="#" className="header-content_navbar-item">
+                    <a href="client/src/components/Header#" className="header-content_navbar-item">
                         <AssignmentTurnedInIcon/>
                         <h4>Workspace</h4>
                     </a>
-                    <a href="#" className="header-content_navbar-item">
+                    <a href="client/src/components/Header#" className="header-content_navbar-item">
                         <AccountCircleIcon/>
                         <h4>Account</h4>
                     </a>
-                    <a href="#" className="header-content_navbar-item">
+                    <a href="client/src/components/Header#" className="header-content_navbar-item">
                         <LogoutIcon/>
                         <h4>Logout</h4>
                     </a>
