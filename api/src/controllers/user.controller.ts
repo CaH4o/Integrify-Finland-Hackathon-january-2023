@@ -117,3 +117,115 @@ export const loginUser = async (
     });
   }
 };
+
+// GET /users
+
+export const getAllUsers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // find all users
+    const users = await User.find({}, '_id email');
+
+    // send success response
+    res.status(200).send({ success: true, users });
+  } catch (error) {
+    // handle error
+    return res.status(500).send({
+      success: false,
+      error: 'Server error',
+    });
+  }
+};
+
+// GET /users/:userId
+
+export const getUserById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // find user by id
+    const user = await User.findById(req.params.userId, '_id email');
+
+    // send success response
+    res.status(200).send({ success: true, user });
+  } catch (error) {
+    // handle error
+    return res.status(500).send({
+      success: false,
+      error: 'Server error',
+    });
+  }
+};
+
+// PUT /users/:userId
+
+export const updateUserById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // get data from request body
+    const update = req.body;
+
+    // find user by id and update
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.userId,
+      update,
+      { new: true }
+    ).select({ password: 0 });
+    if (!updatedUser)
+      return res.status(404).send({
+        success: false,
+        error: 'User not found',
+      });
+
+    // send success response
+    res.status(200).send({
+      success: true,
+      message: 'User successfully updated',
+      updatedUser,
+    });
+  } catch (error) {
+    // handle error
+    return res.status(500).send({
+      success: false,
+      error: 'Server error',
+    });
+  }
+};
+
+// DELETE /users/:userId
+
+export const deleteUserById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // find user by id and delete
+    const deletedUser = await User.findByIdAndDelete(req.params.userId);
+    if (!deletedUser)
+      return res.status(404).send({
+        success: false,
+        error: 'User not found',
+      });
+
+    // send success response
+    return res.status(200).send({
+      success: true,
+      message: 'User has been deleted',
+    });
+  } catch (error) {
+    // handle error
+    return res.status(500).send({
+      success: false,
+      error: 'Server error',
+    });
+  }
+};

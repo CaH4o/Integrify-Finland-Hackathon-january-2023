@@ -19,6 +19,5 @@
   "ts-node": {
     "files": true
   },
-  "files": ["global.d.ts"],
   "exclude": ["*.test.ts", "*.fixture.ts", "db-helper.ts"]
 }
