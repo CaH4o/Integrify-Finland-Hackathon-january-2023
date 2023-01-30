@@ -11,11 +11,9 @@ export type UserDocument = Document & {
 const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
-    default: 'public/images/users/default.svg',
   },
   name: {
     type: String,
-    required: [true, 'Name is required'],
     minLength: [2, 'Name must be at least 2 characters'],
     trim: true,
   },
