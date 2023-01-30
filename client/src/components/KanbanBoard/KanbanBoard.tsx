@@ -5,6 +5,7 @@ import {DragDropContext} from "react-beautiful-dnd";
 import fakeData from "../../fakeData/fakeData";
 import {ColumnData, TaskData} from "../../utility/models";
 import {useState} from "react";
+import React from 'react';
 
 interface DragResult {
     draggableId: string,

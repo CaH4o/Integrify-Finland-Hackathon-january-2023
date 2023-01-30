@@ -3,6 +3,7 @@ import {Priority, TaskPersonData} from "../../utility/models";
 import {Draggable} from "react-beautiful-dnd";
 import EditIcon from "@mui/icons-material/Edit";
 import KanbanTaskCardPerson from "./KanbanTaskCardPerson/KanbanTaskCardPerson";
+import React from 'react';
 
 interface KanbanTaskCardProps {
     data : {
