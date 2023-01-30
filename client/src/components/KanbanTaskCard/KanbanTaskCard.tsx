@@ -25,6 +25,7 @@ const KanbanTaskCard = (props: KanbanTaskCardProps) => {
             {(provided, snapshot) => (
                 <div className='kanban-task'
                      ref={provided.innerRef}
+                     data-dragging={snapshot.isDragging}
                      {...provided.draggableProps}
                      {...provided.dragHandleProps}
                 >

@@ -5,6 +5,7 @@ import {Button} from "@mui/material";
 import {TaskData} from "../../utility/models";
 import {Droppable} from "react-beautiful-dnd";
 import KanbanTaskCard from "../KanbanTaskCard/KanbanTaskCard";
+import React from "react";
 
 interface KanbanColumnProps {
     color: ColumnColors,

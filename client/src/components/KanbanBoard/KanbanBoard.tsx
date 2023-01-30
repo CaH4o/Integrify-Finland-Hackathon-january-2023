@@ -3,7 +3,7 @@ import KanbanColumn from "../KanbanColumn/KanbanColumn";
 import {Button} from "@mui/material";
 import {DragDropContext} from "react-beautiful-dnd";
 import fakeData from "../../fakeData/fakeData";
-import {ColumnData, FakeData, TaskData} from "../../utility/models";
+import {ColumnData, TaskData} from "../../utility/models";
 import {useState} from "react";
 
 interface DragResult {

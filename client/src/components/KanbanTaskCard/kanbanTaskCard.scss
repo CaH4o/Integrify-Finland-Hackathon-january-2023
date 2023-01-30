@@ -12,6 +12,7 @@
   z-index: 10;
   background-color: #fff;
   margin-bottom: 15px;
+  transition: background .1s linear;
 
   &_edit {
     position: absolute;
@@ -73,4 +74,8 @@
   {
     font-size: 13px;
   }
+}
+
+[data-dragging="true"] {
+  background-color: rgb(215, 215, 215);
 }
