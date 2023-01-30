@@ -6,6 +6,7 @@ import fakeData from "../../fakeData/fakeData";
 import {ColumnData, TaskData} from "../../utility/models";
 import {useState} from "react";
 import React from 'react';
+import EditTaskModal from "../modals/EditTaskModal/EditTaskModal";
 
 interface DragResult {
     draggableId: string,
@@ -20,6 +21,9 @@ interface DragDestinationResult {
     index: number,
 }
 const KanbanBoard = () => {
+    const [newTask, setNewTask] = useState(false);
+    const [newColumn, setNewColumn] = useState(false);
+
     const [data, setData] = useState(fakeData);
     const allColumns = data.columns;
     const allTasks = data.tasks;
@@ -100,28 +104,30 @@ const KanbanBoard = () => {
     }
 
     return (
-        <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable
-                droppableId={"all-columns"}
-                direction={"horizontal"}
-                type={"column"}>
-                {provided => (
-                    <div className='kanban-board'
-                         ref={provided.innerRef}
-                         {...provided.droppableProps}>
-                        {data.columnOrder.map((columnId, index) => {
-                            const column:ColumnData = allColumns[columnId];
-                            const tasks:TaskData[] = column.taskIds.map((taskId:string) => allTasks[taskId]);
+        <>
+            <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable
+                    droppableId={"all-columns"}
+                    direction={"horizontal"}
+                    type={"column"}>
+                    {provided => (
+                        <div className='kanban-board'
+                             ref={provided.innerRef}
+                             {...provided.droppableProps}>
+                            {data.columnOrder.map((columnId, index) => {
+                                const column:ColumnData = allColumns[columnId];
+                                const tasks:TaskData[] = column.taskIds.map((taskId:string) => allTasks[taskId]);
 
-                            return <KanbanColumn index={index} color={column.color} title={column.title} tasks={tasks} key={column.id} id={column.id}/>
-                        })}
-                        {provided.placeholder}
-                        <Button variant="outlined" className='kanban-board_add'>New Column</Button>
+                                return <KanbanColumn index={index} color={column.color} title={column.title} tasks={tasks} key={column.id} id={column.id}/>
+                            })}
+                            {provided.placeholder}
+                            <Button variant="outlined" className='kanban-board_add'>New Column</Button>
 
-                    </div>
-                )}
-            </Droppable>
-        </DragDropContext>
+                        </div>
+                    )}
+                </Droppable>
+            </DragDropContext>
+        </>
     )
 }
 

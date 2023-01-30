@@ -1,0 +1,72 @@
+@use '../../utility/variables';
+
+.kanban-modal {
+  position: fixed;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 15px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px;
+
+  & h1 {
+    color: variables.$main-black;
+    margin-bottom: 15px;
+  }
+
+  &_overlay {
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 1000;
+  }
+
+  &_form {
+    display: flex;
+    flex-direction: column;
+    color: variables.$main-black;
+
+    &-checkbox {
+      display: flex;
+      justify-content: space-around;
+
+      & input {
+        display: none;
+      }
+
+      & label {
+        background-color: black;
+        padding: 7px 12px;
+        border-radius: 5px;
+      }
+    }
+  }
+
+  &_dropdown {
+    margin-bottom: 15px!important;
+
+    & > * {
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+
+  &_buttons {
+    display: flex;
+
+    & button:first-child {
+      margin-right: 20px;
+    }
+  }
+
+  & input[type="radio"]:checked+label {
+      outline: 2px solid variables.$main-blue-dark;
+  }
+}

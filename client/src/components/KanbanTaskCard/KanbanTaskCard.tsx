@@ -3,7 +3,8 @@ import {Priority, TaskPersonData} from "../../utility/models";
 import {Draggable} from "react-beautiful-dnd";
 import EditIcon from "@mui/icons-material/Edit";
 import KanbanTaskCardPerson from "./KanbanTaskCardPerson/KanbanTaskCardPerson";
-import React from 'react';
+import React, {useState} from 'react';
+import EditTaskModal from "../modals/EditTaskModal/EditTaskModal";
 
 interface KanbanTaskCardProps {
     data : {
@@ -19,18 +20,21 @@ interface KanbanTaskCardProps {
 }
 const KanbanTaskCard = (props: KanbanTaskCardProps) => {
     const {index} = props;
+    const [editTask, setEditTask] = useState(false);
+
     const {id, title, assigned, creator, description, date, priority} = props.data;
     // style={{border: `1px solid ${priority.color}`}} - for borders ??
     return (
-        <Draggable draggableId={id} index={index}>
-            {(provided, snapshot) => (
-                <div className='kanban-task'
-                     ref={provided.innerRef}
-                     data-dragging={snapshot.isDragging}
-                     {...provided.draggableProps}
-                     {...provided.dragHandleProps}
-                >
-                        <EditIcon className='kanban-task_edit'/>
+        <>
+            <Draggable draggableId={id} index={index}>
+                {(provided, snapshot) => (
+                    <div className='kanban-task'
+                         ref={provided.innerRef}
+                         data-dragging={snapshot.isDragging}
+                         {...provided.draggableProps}
+                         {...provided.dragHandleProps}
+                    >
+                        <EditIcon className='kanban-task_edit' onClick={() => setEditTask(true)}/>
                         <div className='kanban-task_item'>
                             <h4>Title</h4>
                             <p className='kanban-task_item-title'>{title}</p>
@@ -55,9 +59,11 @@ const KanbanTaskCard = (props: KanbanTaskCardProps) => {
                             <h4>Assigned</h4>
                             <KanbanTaskCardPerson person={assigned}/>
                         </div>
-                </div>
-            )}
-        </Draggable>
+                    </div>
+                )}
+            </Draggable>
+            <EditTaskModal editTask={editTask} setEditTask={setEditTask} data={props.data}/>
+        </>
     )
 }
 
