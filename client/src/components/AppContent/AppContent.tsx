@@ -9,7 +9,6 @@ const AppContent = () => {
             <>
                 <Header/>
                 {authenticated ? <Outlet/> : redirect('/login')}
-                <Outlet/>
             </>
     )
 }
