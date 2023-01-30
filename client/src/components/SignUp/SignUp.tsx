@@ -42,7 +42,6 @@ const handleSubmit = async (event: React.SyntheticEvent) => {
   return (
     <Box className="signup" sx={{ display: signUp ? 'flex' : 'none' }}>
       <h1 className="signup__heading">SIGN UP</h1>
-      <form onSubmit={handleSubmit}>
         <input
           name="email"
           type={'email'}
@@ -64,10 +63,9 @@ const handleSubmit = async (event: React.SyntheticEvent) => {
           placeholder="Confirm Password"
           onChange={handleConfirmPasswordChange}
         />
-        <button className="signup__btn" type="submit">
+        <button className="signup__btn" onClick={handleSubmit}>
           SIGN UP
         </button>
-      </form>
       <p className="already" onClick={showSignIn}>
         Already have an account?
       </p>

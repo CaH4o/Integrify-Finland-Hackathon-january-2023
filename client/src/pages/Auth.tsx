@@ -28,13 +28,13 @@ const Auth = () => {
     }
   return (
     <>
-        <Box sx={{ display: "flex", justifyContent: "center", ml: "200px"}}>
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 20}}>
             <SignIn showSignUp={showSignUp} showForgotPassword={showForgotPassword} signIn={signIn}/>
         </Box>
-        <Box sx={{ display: "flex", justifyContent: "center", ml: "200px"}}>
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 20}}>
             <SignUp showSignIn={showSignIn} signUp={signUp}/>
         </Box>
-        <Box sx={{ display: "flex", justifyContent: "center", ml: "200px"}}>
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 20}}>
             <ForgotPassword showSignIn={showSignIn} forgotPassword={forgotPassword}/>
         </Box>
     </>
