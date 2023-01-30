@@ -1,8 +1,15 @@
 import './_App.scss'
+import Header from "../Header/Header";
+import KanbanBoard from "../KanbanBoard/KanbanBoard";
 
 const App = () => {
     return (
-        <h1>Hello World!</h1>
+        <>
+            <Header/>
+            <div style={{marginLeft: '125px'}}>
+                <KanbanBoard/>
+            </div>
+        </>
     )
 }
 

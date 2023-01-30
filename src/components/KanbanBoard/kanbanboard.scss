@@ -1,0 +1,19 @@
+@use './src/utility/variables';
+
+.kanban-board {
+  width: calc(100vw - 125px);
+  height: 100vh;
+  padding: 10px 10px 0 0;
+  overflow: scroll;
+  white-space: nowrap;
+  display: flex;
+  scroll-snap-align: start;
+
+  &_add {
+    height: 45px;
+    min-width: 145px!important;
+    padding: 5px 9px;
+    cursor: pointer;
+    transition: opacity .1s linear;
+  }
+}
