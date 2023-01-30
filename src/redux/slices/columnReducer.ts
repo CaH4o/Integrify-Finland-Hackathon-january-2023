@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Column, Task } from "../../utility/models";
+import { Column, TaskData } from "../../utility/models";
 import { Columns } from "../../utility/types";
 
 const initialState: Columns = [
@@ -40,8 +40,8 @@ const columnSlice = createSlice({
 
       column = {
         ...column,
-        tasks: column.tasks.filter(function (t_s: Task) {
-          return action.payload.tasks.some(function (t_pa: Task) {
+        tasks: column.tasks.filter(function (t_s: TaskData) {
+          return action.payload.tasks.some(function (t_pa: TaskData) {
             return t_s.id !== t_pa.id;
           });
         }),

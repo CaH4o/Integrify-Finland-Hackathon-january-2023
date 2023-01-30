@@ -1,5 +1,5 @@
 //types
-import { Column, Task, User } from "./models";
+import { Column, TaskData, TaskPersonData } from "./models";
 
 export enum ColumnColors {
     Red = '#EB5757',
@@ -11,7 +11,7 @@ export enum ColumnColors {
     Grey = '#4F4F4F',
 }
 
-export type Tasks = Task[];
+export type Tasks = TaskData[];
 export type Columns = Column[];
-export type Users = User[];
+export type Users = TaskPersonData[];
 

@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
-import { User, UserState } from "../../utility/models";
+import { TaskPersonData, UserState } from "../../utility/models";
 
 const initialState: UserState = {
   email: "",
-  login: "",
+  avatar: "",
   name: "",
+  position: "",
   error: false,
   loading: false,
 };
@@ -17,11 +18,15 @@ const userSlice = createSlice({
   reducers: {
     logOut: function (state: UserState) {
       const email = "";
-      const login = "";
+      const avatar = "";
       const name = "";
-      return { ...state, email, login, name };
+      const position = "";
+      return { ...state, email, avatar, name, position };
     },
-    updateUser: function (state: UserState, action: PayloadAction<User>) {
+    updateUser: function (
+      state: UserState,
+      action: PayloadAction<TaskPersonData>
+    ) {
       return { ...state, ...action.payload };
     },
   },
@@ -38,7 +43,7 @@ const userSlice = createSlice({
       })
       .addCase(
         login.fulfilled,
-        function (state: UserState, action: PayloadAction<User>) {
+        function (state: UserState, action: PayloadAction<TaskPersonData>) {
           const loading: boolean = true;
           return { ...state, loading, ...action.payload };
         }
@@ -50,13 +55,12 @@ const userReducer = userSlice.reducer;
 export default userReducer;
 export const {} = userSlice.actions;
 
-
 const url = "https://localhost:8080";
 
 export const login = createAsyncThunk(
   "user/login",
-  async function (): Promise<User> {
-    return await fetchData<User>(url);
+  async function (): Promise<TaskPersonData> {
+    return await fetchData<TaskPersonData>(url);
   }
 );
 
