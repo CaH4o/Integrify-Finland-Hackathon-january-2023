@@ -1,7 +1,7 @@
 import React, { Route, Routes } from "react-router-dom";
 
 import "./_App.scss";
-import Auth from "../../pages/Auth";
+import Auth from "../../pages/Auth/Auth";
 import AppContent from "../AppContent/AppContent";
 import Dashboard from "../../pages/Dashboard";
 import SettingsPage from "../../pages/Settings";

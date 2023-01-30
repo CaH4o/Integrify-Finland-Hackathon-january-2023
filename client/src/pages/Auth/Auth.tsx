@@ -1,8 +1,9 @@
 import { Box } from '@mui/material'
+import './_auth.scss';
 import React, { useState } from 'react'
-import ForgotPassword from '../ForgotPassword/ForgotPassword'
-import SignIn from "../components/SignIn/SignIn";
-import SignUp from "../components/SignUp/SignUp";
+import ForgotPassword from '../../ForgotPassword/ForgotPassword'
+import SignIn from "../../components/SignIn/SignIn";
+import SignUp from "../../components/SignUp/SignUp";
 
 const Auth = () => {
     const [signIn, setSignIn] = useState<boolean>(true);
@@ -27,17 +28,29 @@ const Auth = () => {
         setForgotPassword(true);
     }
   return (
-    <>
-        <Box sx={{ display: "flex", justifyContent: "center", ml: "200px"}}>
+    <div className="area" >
+        <Box className='modal-login'>
             <SignIn showSignUp={showSignUp} showForgotPassword={showForgotPassword} signIn={signIn}/>
         </Box>
-        <Box sx={{ display: "flex", justifyContent: "center", ml: "200px"}}>
+        <Box className='modal-login'>
             <SignUp showSignIn={showSignIn} signUp={signUp}/>
         </Box>
-        <Box sx={{ display: "flex", justifyContent: "center", ml: "200px"}}>
+        <Box className='modal-login'>
             <ForgotPassword showSignIn={showSignIn} forgotPassword={forgotPassword}/>
         </Box>
-    </>
+        <ul className="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
   )
 }
 
