@@ -135,13 +135,13 @@ const fakeData: FakeData = {
     "column-3": {
       id: "column-3",
       title: "On Hold",
-      taskIds: ["task-4"],
+      taskIds: [],
       color: ColumnColors.Red,
     },
     "column-4": {
       id: "column-4",
       title: "Finished",
-      taskIds: ["task-5", "task-6"],
+      taskIds: ["task-5", "task-6","task-4"],
       color: ColumnColors.Green,
     },
   },

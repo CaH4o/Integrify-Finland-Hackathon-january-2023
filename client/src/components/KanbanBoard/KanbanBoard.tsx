@@ -3,8 +3,9 @@ import KanbanColumn from "../KanbanColumn/KanbanColumn";
 import {Button} from "@mui/material";
 import {DragDropContext} from "react-beautiful-dnd";
 import fakeData from "../../fakeData/fakeData";
-import {ColumnData, FakeData, TaskData} from "../../utility/models";
+import {ColumnData, TaskData} from "../../utility/models";
 import {useState} from "react";
+import React from 'react';
 
 interface DragResult {
     draggableId: string,
@@ -34,24 +35,55 @@ const KanbanBoard = () => {
             return;
         }
 
-        const column = allColumns[source.droppableId];
-        const newTasksIds = Array.from(column.taskIds);
-        newTasksIds.splice(source.index, 1);
-        newTasksIds.splice(destination.index, 0, draggableId);
+        const start = allColumns[source.droppableId];
+        const finish = allColumns[destination.droppableId];
 
-        const newColumn = {
-            ...column,
-            taskIds: newTasksIds,
-        };
+        //SAME COLUMN
+        if(start === finish) {
+            const newTasksIds = Array.from(start.taskIds);
+            newTasksIds.splice(source.index, 1);
+            newTasksIds.splice(destination.index, 0, draggableId);
 
-        const newData = {
-            ...data,
-            columns: {
-                ...data.columns,
-                [newColumn.id]: newColumn,
-            },
-        };
-        setData(newData);
+            const newColumn = {
+                ...start,
+                taskIds: newTasksIds,
+            };
+
+            const newData = {
+                ...data,
+                columns: {
+                    ...data.columns,
+                    [newColumn.id]: newColumn,
+                },
+            };
+            setData(newData);
+        }
+        //DIFFERENT COLUMN
+        else {
+            const startTaskIds = Array.from(start.taskIds);
+            startTaskIds.splice(source.index, 1);
+            const newStart = {
+                ...start,
+                    taskIds: startTaskIds,
+            };
+            const finishTaskIds = Array.from(finish.taskIds);
+            finishTaskIds.splice(destination.index, 0, draggableId);
+            const newFinish = {
+                ...finish,
+                taskIds: finishTaskIds
+            };
+
+            const newState = {
+                ...data,
+                columns: {
+                    ...data.columns,
+                    [newStart.id] : newStart,
+                    [newFinish.id] : newFinish,
+                }
+            };
+            setData(newState);
+        }
+
     }
 
     return (

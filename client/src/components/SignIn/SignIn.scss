@@ -7,12 +7,14 @@
     gap: 20px;
     border-radius: 4px;
     font-size: 80%;
-  
+    text-align: center;
+    
     .signIn__heading {
       color: white;
+      margin-top: 40px;
     }
   
-    .singIn__email, .signIn__password {
+    .signIn__email, .signIn__password {
       width: 200px;
       align-self: center;
       background-color: #bbbbbb;
@@ -22,7 +24,7 @@
       border: none;
     }
   
-    .singIn__email::placeholder, .signIn__password::placeholder {
+    .signIn__email::placeholder, .signIn__password::placeholder {
       color: #5e5e5e;
     }
   
@@ -31,7 +33,7 @@
       color: #999999;
       align-self: center;
       position: relative;
-      right: 17%;
+      right: 12%;
     }
   
     .rememberMe input {
@@ -39,7 +41,7 @@
     }
   
     .login__btn {
-      width: 220px;
+      width: 200px;
       align-self: center;
       outline: none;
       border: none;
@@ -88,14 +90,17 @@
         padding: 10px;
         border: 1px solid #999;
         border-radius: 5px;
+        font-size: 200%;
+
+        &:hover {
+          color: #ccc;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
       }
   
-      .link:hover {
-        color: #ccc;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-      }
+
     }
   }
   

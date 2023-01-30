@@ -14,7 +14,6 @@
     padding: 8px 0;
     border-radius: 5px;
     color: variables.$main-white;
-    margin-bottom: 10px;
     width: 100%;
   }
 
@@ -30,6 +29,14 @@
     & svg {
       font-size: 20px;
     }
+  }
+
+  &_task-list {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   &:last-child {
