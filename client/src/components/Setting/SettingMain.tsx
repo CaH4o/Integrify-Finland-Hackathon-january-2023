@@ -9,6 +9,7 @@ import {
   CardHeader,
   Typography,
 } from "@mui/material";
+
 import SettingMainAccount from "./SettingMainAccount";
 
 export default function SettingMain() {
@@ -51,44 +52,84 @@ export default function SettingMain() {
             {"Person Name"}
           </Typography>
         </CardContent>
-        <CardActions style={{ display: "flex", flexDirection: "column" }}>
+        <CardActions
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            padding: 0,
+            margin: 0,
+          }}
+        >
           <Button
-            style={{ textTransform: "none", width: "100%" }}
+            size="large"
+            style={{
+              textTransform: "none",
+              width: "100%",
+              margin: 0,
+              color: "black",
+              background: renderSetting === "account" ? "#007CFF" : "",
+            }}
             name="account"
             onClick={handleClickSetting}
           >
             Account
           </Button>
           <Button
-            style={{ textTransform: "none", width: "100%" }}
+            size="large"
+            style={{
+              textTransform: "none",
+              width: "100%",
+              margin: 0,
+              color: "black",
+              background: renderSetting === "password" ? "#007CFF" : "",
+            }}
             name="password"
             onClick={handleClickSetting}
           >
             Password
           </Button>
           <Button
-            style={{ textTransform: "none", width: "100%" }}
+            size="large"
+            style={{
+              textTransform: "none",
+              width: "100%",
+              margin: 0,
+            }}
             name="security"
             onClick={handleClickSetting}
+            disabled
           >
             Security
           </Button>
           <Button
-            style={{ textTransform: "none", width: "100%" }}
+            size="large"
+            style={{
+              textTransform: "none",
+              width: "100%",
+              margin: 0,
+            }}
             name="application"
             onClick={handleClickSetting}
+            disabled
           >
             Application
           </Button>
           <Button
-            style={{ textTransform: "none", width: "100%" }}
+            size="large"
+            style={{
+              textTransform: "none",
+              width: "100%",
+              margin: 0,
+            }}
             name="notification"
+            onClick={handleClickSetting}
+            disabled
           >
             Notification
           </Button>
         </CardActions>
       </Box>
-      <Box component="div" sx={{ width: "100%", minHeight: 500, }}>
+      <Box component="div" sx={{ width: "100%", minHeight: 500 }}>
         {renderSetting === "account" ? <SettingMainAccount /> : null}
         {renderSetting === "password" ? <></> : null}
         {renderSetting === "security" ? <></> : null}
