@@ -14,7 +14,7 @@
       margin-top: 40px;
     }
   
-    .singIn__email, .signIn__password {
+    .signIn__email, .signIn__password {
       width: 200px;
       align-self: center;
       background-color: #bbbbbb;
@@ -24,7 +24,7 @@
       border: none;
     }
   
-    .singIn__email::placeholder, .signIn__password::placeholder {
+    .signIn__email::placeholder, .signIn__password::placeholder {
       color: #5e5e5e;
     }
   
@@ -90,14 +90,17 @@
         padding: 10px;
         border: 1px solid #999;
         border-radius: 5px;
+        font-size: 200%;
+
+        &:hover {
+          color: #ccc;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
       }
   
-      .link:hover {
-        color: #ccc;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-      }
+
     }
   }
   

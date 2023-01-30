@@ -1,18 +1,20 @@
 import "./_App.scss";
-import Header from "../Header/Header";
 import { Route, Routes } from "react-router-dom";
+import React from 'react';
+import AppContent from "../AppContent/AppContent";
 import Auth from "../../pages/Auth";
 import Dashboard from "../../pages/Dashboard";
-import Settings from "../../pages/Settings";
+import SettingsPage from "../../pages/Settings";
 
 const App = () => {
   return (
     <>
-      <Header />
       <Routes>
-        <Route path="/" element={<Auth />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/settings" element={<Settings />} />
+        <Route path="/login" element={<Auth />} />
+        <Route path="/" element={<AppContent/>}>
+            <Route path="/" element={<Dashboard />}/>
+            <Route path="/settings" element={<SettingsPage/>}/>
+        </Route>
       </Routes>
     </>
   );

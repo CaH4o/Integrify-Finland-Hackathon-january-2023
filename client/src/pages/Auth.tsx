@@ -1,8 +1,8 @@
 import { Box } from '@mui/material'
 import React, { useState } from 'react'
-import ForgotPassword from '../components/ForgotPassword/ForgotPassword'
-import SignIn from "../../client/src/components/SignIn/SignIn";
-import SignUp from "../../client/src/components/SignUp/SignUp";
+import ForgotPassword from '../ForgotPassword/ForgotPassword'
+import SignIn from "../components/SignIn/SignIn";
+import SignUp from "../components/SignUp/SignUp";
 
 const Auth = () => {
     const [signIn, setSignIn] = useState<boolean>(true);
