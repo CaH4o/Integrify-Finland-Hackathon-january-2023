@@ -7,9 +7,11 @@
     gap: 20px;
     border-radius: 4px;
     font-size: 80%;
-  
+    text-align: center;
+    
     .signIn__heading {
       color: white;
+      margin-top: 40px;
     }
   
     .singIn__email, .signIn__password {
@@ -31,7 +33,7 @@
       color: #999999;
       align-self: center;
       position: relative;
-      right: 17%;
+      right: 12%;
     }
   
     .rememberMe input {
@@ -39,7 +41,7 @@
     }
   
     .login__btn {
-      width: 220px;
+      width: 200px;
       align-self: center;
       outline: none;
       border: none;
