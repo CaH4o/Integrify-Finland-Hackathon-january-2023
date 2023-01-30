@@ -1,0 +1,87 @@
+.signup {
+    width: 350px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    background-color: #333333;
+    gap: 20px;
+    border-radius: 4px;
+    font-size: 80%;
+  
+    .signup__heading {
+      color: white;
+    }
+  
+    .singup__email, .signup__password {
+      width: 200px;
+      align-self: center;
+      background-color: #bbbbbb;
+      padding: 10px;
+      border-radius: 5px;
+      outline: none;
+      border: none;
+    }
+  
+    .singup__email::placeholder, .signup__password::placeholder {
+      color: #5e5e5e;
+    }
+    
+    .signup__btn {
+      width: 220px;
+      align-self: center;
+      outline: none;
+      border: none;
+      padding: 10px;
+      background-color: #97abf4;
+      color: white;
+      border-radius: 5px;
+    }
+  
+    .already {
+      margin-top: -10px;
+      color: #999999;
+    }
+  
+    .or {
+      max-width: 220px;
+      align-self: center;
+      margin-top: -15px;
+      width: 100%;
+      text-align: center;
+      border-bottom: 2px solid #999999;
+      line-height: 0.1em;
+      margin: 10px 0 20px;
+  
+      span {
+        border: 2px solid #999999;
+        border-radius: 5px;
+        background: #333333;
+        padding: 10px;
+        color: #999999;
+      }
+    }
+  
+  
+    .links {
+      display: flex;
+      align-self: center;
+      gap: 20px;
+      margin-top: -5x;
+  
+      .link {
+          color: #999999;
+          padding: 10px;
+          border: 1px solid #999;
+          border-radius: 5px;
+        }
+        
+        .link:hover {
+          color: #ccc;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
+        
+    }
+  }
+  
