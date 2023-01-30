@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
+import dev from '../config';
 import User from '../models/User';
 import { comparePassword, encryptPassword } from '../util/securePassword';
 
@@ -38,6 +40,74 @@ export const registerUser = async (
       success: true,
       message: 'User registered',
       user: { email: user.email },
+    });
+  } catch (error) {
+    // handle error
+    return res.status(500).send({
+      success: false,
+      error: 'Server error',
+    });
+  }
+};
+
+// POST /users/login
+
+export const loginUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // get data from request body
+    const { email, password } = req.body;
+
+    // check if user exists
+    const existingUser = await User.findOne({ email });
+    if (!existingUser)
+      return res.status(404).send({
+        success: false,
+        error: "User with this email doesn't exist",
+      });
+
+    // compare password
+    const isPasswordMatched = await comparePassword(
+      password,
+      existingUser.password
+    );
+
+    if (!isPasswordMatched) {
+      return res.status(401).send({
+        success: false,
+        error: "Email or password didn't match",
+      });
+    }
+
+    // sign access token
+    const accessToken = jwt.sign(
+      { _id: existingUser._id },
+      String(dev.jwt.access),
+      {
+        expiresIn: '30m',
+      }
+    );
+
+    // set access cookie
+    res.cookie(String(existingUser._id), accessToken, {
+      path: '/',
+      expires: new Date(Date.now() + 1000 * 60 * 29),
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+
+    // send success response
+    return res.status(200).send({
+      success: true,
+      message: 'Login successful',
+      accessToken,
+      userData: {
+        _id: existingUser._id,
+        email: existingUser.email,
+      },
     });
   } catch (error) {
     // handle error
