@@ -8,7 +8,10 @@ type SignUpProps = {
   signUp: boolean;
 };
 
-// form field states
+
+
+const SignUp = ({ showSignIn, signUp }: SignUpProps) => {
+  // form field states
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 const [confirmPassword, setConfirmPassword] = useState('');
@@ -36,8 +39,6 @@ const handleSubmit = async (event: React.SyntheticEvent) => {
   );
   console.log(response);
 };
-
-const SignUp = ({ showSignIn, signUp }: SignUpProps) => {
   return (
     <Box className="signup" sx={{ display: signUp ? 'flex' : 'none' }}>
       <h1 className="signup__heading">SIGN UP</h1>
