@@ -4,7 +4,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import "./SignIn.scss"
 import { MouseEventHandler } from "react";
-
+import React from 'react';
 
 type SignInProps = {
   showSignUp: MouseEventHandler,
@@ -35,7 +35,6 @@ const SignIn = ({showSignUp, showForgotPassword, signIn} : SignInProps) => {
           <LockOpenIcon className="link" />
         </IconButton>
         </Box>
-
     </Box>
   )
 }

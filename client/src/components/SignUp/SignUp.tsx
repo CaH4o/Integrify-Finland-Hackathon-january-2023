@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
-
 import "./SignUp.scss"
 import { MouseEventHandler } from "react";
+import React from 'react';
 
 type SignUpProps = {
   showSignIn: MouseEventHandler<HTMLParagraphElement>,
