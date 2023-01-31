@@ -4,10 +4,8 @@ import axios from "axios";
 import { TaskPersonData, UserState } from "../../utility/models";
 
 const initialState: UserState = {
-  email: "",
   avatar: "",
   name: "",
-  position: "",
   error: false,
   loading: false,
   authentication: false,
@@ -22,11 +20,9 @@ const userSlice = createSlice({
    },
     logOut: function (state: UserState) {
       state.authentication = false
-      const email = "";
       const avatar = "";
       const name = "";
-      const position = "";
-      return { ...state, email, avatar, name, position };
+      return { ...state, avatar, name };
     },
     updateUser: function (
       state: UserState,

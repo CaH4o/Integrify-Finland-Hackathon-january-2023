@@ -8,8 +8,8 @@ import { Box } from '@mui/material';
 import Auth from '../../pages/Auth/Auth';
 
 const AppContent = () => {
-    const authenticated = useSelector((state: RootState) => state.user.authentication)
-    
+    // const authenticated = useSelector((state: RootState) => state.user.authentication)
+    const authenticated = true;
     return(
             <>
                 {authenticated ? <Box>

@@ -7,8 +7,6 @@ export default function SettingMainAccount(): JSX.Element {
   const [personData, setPersonData] = useState<TaskPersonData>({
     avatar: "",
     name: "",
-    position: "",
-    email: "",
   });
 
   function handleChange(
@@ -27,8 +25,6 @@ export default function SettingMainAccount(): JSX.Element {
     const resetData: TaskPersonData = {
       avatar: "",
       name: "",
-      position: "",
-      email: "",
     };
     setPersonData(resetData);
   }
@@ -47,7 +43,7 @@ export default function SettingMainAccount(): JSX.Element {
     >
       <Box component="div">
         <Typography gutterBottom variant="h5" component="div">
-          Accaunt Settings
+          Account Settings
         </Typography>
       </Box>
       <Box component="div" sx={{ display: "flex", gap: "1.3rem" }}>
@@ -88,25 +84,6 @@ export default function SettingMainAccount(): JSX.Element {
             width: "50%",
           }}
         >
-          <TextField
-            label="Email"
-            name="email"
-            type="email"
-            value={personData.email}
-            onChange={handleChange}
-            required
-            helperText="Please fill your email here."
-          />
-          <TextField
-            label="Position"
-            name="position"
-            type="text"
-            value={personData.position}
-            onChange={handleChange}
-            required
-            helperText="Please fill your position here."
-          />
-        </Box>
       </Box>
       <Box sx={{ height: "100%" }}></Box>
       <Box component="div" sx={{ display: "flex", gap: "1.3rem" }}>
@@ -122,6 +99,7 @@ export default function SettingMainAccount(): JSX.Element {
           Cancel
         </Button>
       </Box>
+    </Box>
     </Box>
   );
 }

@@ -2,6 +2,7 @@ import './header.scss';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
+import SyncIcon from '@mui/icons-material/Sync';
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import { logOut } from '../../redux/slices/userReducer';
@@ -17,7 +18,11 @@ const Header = () => {
             <div className="header-content">
                 <img src="./photo-1438761681033-6461ffad8d80.jpg" alt="avatar"/>
                 <nav className="header-content_navbar">
-                    <NavLink to={'/'} className="header-content_navbar-item">
+                    <button className='header-content_navbar-item header-content_navbar-btn'>
+                        <SyncIcon/>
+                        <h4>Sync GitHub</h4>
+                    </button>
+                    <NavLink to={'/'} className="header-content_navbar-item header-content_navbar-btn">
                         <AssignmentTurnedInIcon/>
                         <h4>Workspace</h4>
                     </NavLink>
