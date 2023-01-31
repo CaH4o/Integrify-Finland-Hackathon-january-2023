@@ -35,8 +35,8 @@ const SignIn = ({showSignUp, showForgotPassword, signIn} : SignInProps) => {
   return (
     <Box className="signIn" sx={{ display: signIn ? "flex" : "none"}}>
         <h1 className="signIn__heading">LOG IN</h1>
-        <input type={"email"} className="signIn__email" placeholder="Email"/>
-        <input type={"password"} className="signIn__password" placeholder="Password"/>
+        <input type={"email"} className="signIn__email" placeholder="Email" onChange={emailChangeHandler}/>
+        <input type={"password"} className="signIn__password" placeholder="Password" onChange={passwordChangeHandler}/>
         <div className="rememberMe">
         <input type="checkbox" name="remember me" id="remember" />
         <label htmlFor="remember">Remember me</label>
