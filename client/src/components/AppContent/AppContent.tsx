@@ -13,7 +13,9 @@ const AppContent = () => {
     return(
             <>
                 {authenticated ? <Box>
-                    <Header/><Outlet/></Box> : <Auth />}
+                    <Header/>
+                    <Outlet/>
+                    </Box> : <Auth />}
             </>
     )
 }
