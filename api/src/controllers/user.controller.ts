@@ -28,14 +28,14 @@ export const registerUser = async (req: Request, res: Response) => {
       password: hashPassword,
     });
 
-    // svae to database
-    await user.save();
+    // save to database
+    const newUser = await user.save();
 
     // send success response
     return res.status(200).send({
       success: true,
       message: 'User registered',
-      user: { email: user.email },
+      user: { email: newUser.email, _id: newUser._id },
     });
   } catch (error) {
     // handle error
@@ -96,10 +96,7 @@ export const loginUser = async (req: Request, res: Response) => {
       success: true,
       message: 'Login successful',
       accessToken,
-      userData: {
-        _id: existingUser._id,
-        email: existingUser.email,
-      },
+      user: existingUser,
     });
   } catch (error) {
     // handle error
@@ -200,7 +197,7 @@ export const logoutUser = async (req: Request, res: Response) => {
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
     // find all users
-    const users = await User.find({}, '_id email');
+    const users = await User.find().select({ password: 0 });
 
     // send success response
     res.status(200).send({ success: true, users });
@@ -218,7 +215,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 export const getUserById = async (req: Request, res: Response) => {
   try {
     // find user by id
-    const user = await User.findById(req.params.userId, '_id email');
+    const user = await User.findById(req.params.userId).select({ password: 0 });
 
     // send success response
     res.status(200).send({ success: true, user });
