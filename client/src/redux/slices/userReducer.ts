@@ -33,18 +33,18 @@ const userSlice = createSlice({
   extraReducers: function (builder) {
     builder
       .addCase(login.pending, function (state: UserState) {
-        const loading: boolean = true;
+        const loading = true;
         return { ...state, loading };
       })
       .addCase(login.rejected, function (state: UserState) {
-        const error: boolean = true;
-        const loading: boolean = false;
+        const error = true;
+        const loading = false;
         return { ...state, error, loading };
       })
       .addCase(
         login.fulfilled,
         function (state: UserState, action: PayloadAction<TaskPersonData>) {
-          const loading: boolean = true;
+          const loading = true;
           return { ...state, loading, ...action.payload };
         }
       );
@@ -53,7 +53,7 @@ const userSlice = createSlice({
 
 const userReducer = userSlice.reducer;
 export default userReducer;
-export const {} = userSlice.actions;
+export const {logOut, updateUser} = userSlice.actions;
 
 const url = "https://localhost:8080";
 
