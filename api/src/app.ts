@@ -3,6 +3,7 @@ import cors from 'cors';
 import { connectDatabase } from './config/db';
 import dev from './config';
 import userRouter from './routers/user.router';
+import taskRouter from './routers/task.router';
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // set up routers
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/tasks', taskRouter);
 
 // run server
 app.listen(dev.app.port, async () => {
