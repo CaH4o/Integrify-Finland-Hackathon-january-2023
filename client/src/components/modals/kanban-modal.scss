@@ -50,8 +50,6 @@
   }
 
   &_dropdown {
-    margin-bottom: 15px!important;
-
     & > * {
       width: 100%;
       margin-top: 10px;
@@ -60,13 +58,28 @@
 
   &_buttons {
     display: flex;
+    margin-top: 15px;
 
     & button:first-child {
       margin-right: 20px;
     }
   }
 
+  &_preview {
+    margin-top: 15px;
+    width: 100%;
+  }
+
   & input[type="radio"]:checked+label {
       outline: 2px solid variables.$main-blue-dark;
+  }
+
+  & .checkbox-columns {
+    & label {
+      display: block;
+      border-radius: 50%;
+      height: 30px;
+      width: 30px;
+    }
   }
 }

@@ -37,18 +37,15 @@ const KanbanTaskCard = (props: KanbanTaskCardProps) => {
                             style={{backgroundColor: `${priority.color}`}}
                             className='kanban-task_item-priority'></span>
                         <div className='kanban-task_item'>
-                            <h4>Title</h4>
+                            {/*<h4>Title</h4>*/}
                             <p className='kanban-task_item-title'>{title}</p>
                         </div>
                         <div className='kanban-task_item kanban-task_item-description'>
-                            <h4>Description</h4>
+                            {/*<h4>Description</h4>*/}
                             <p>{description}.</p>
                         </div>
-                        {/*<div className='kanban-task_item'>*/}
-                        {/*    <h4>Priority</h4>*/}
-                        {/*    <p id='task-priority' style={{backgroundColor: `${priority.background}`, color: `${priority.color}`}}>{priority.text}</p>*/}
                         <div className='kanban-task_item'>
-                            <h4>Assigned</h4>
+                            {/*<h4>Assigned</h4>*/}
                             <KanbanTaskCardPerson person={assigned}/>
                         </div>
                     </div>

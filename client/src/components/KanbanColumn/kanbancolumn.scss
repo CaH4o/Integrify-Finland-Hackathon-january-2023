@@ -2,6 +2,7 @@
 
 .kanban-column {
   display: flex;
+  width: content-box;
   flex-direction: column;
   align-items: center;
   min-width: 420px;
@@ -12,7 +13,7 @@
 
   &_title {
     text-align: center;
-    padding: 8px 0;
+    padding: 8px 15px;
     border-radius: 5px;
     color: variables.$main-white;
     width: 100%;

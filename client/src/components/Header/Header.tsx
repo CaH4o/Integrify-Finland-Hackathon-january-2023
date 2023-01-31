@@ -3,6 +3,7 @@ import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SyncIcon from '@mui/icons-material/Sync';
+import CloudQueueIcon from '@mui/icons-material/CloudQueue';
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import { logOut } from '../../redux/slices/userReducer';
@@ -21,6 +22,10 @@ const Header = () => {
                     <button className='header-content_navbar-item header-content_navbar-btn'>
                         <SyncIcon/>
                         <h4>Sync GitHub</h4>
+                    </button>
+                    <button className='header-content_navbar-item header-content_navbar-btn'>
+                        <CloudQueueIcon/>
+                        <h4>Connect<br/>Slack</h4>
                     </button>
                     <NavLink to={'/'} className="header-content_navbar-item header-content_navbar-btn">
                         <AssignmentTurnedInIcon/>

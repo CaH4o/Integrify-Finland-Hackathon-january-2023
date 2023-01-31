@@ -7,6 +7,8 @@ import {ColumnData, TaskData} from "../../utility/models";
 import {useState} from "react";
 import React from 'react';
 import EditTaskModal from "../modals/EditTaskModal/EditTaskModal";
+import CreateTaskModal from "../modals/CreateTaskModal/CreateTaskModal";
+import CreateColumnModal from "../modals/CreateColumnModal/CreateColumnModal";
 
 interface DragResult {
     draggableId: string,
@@ -21,8 +23,7 @@ interface DragDestinationResult {
     index: number,
 }
 const KanbanBoard = () => {
-    const [newTask, setNewTask] = useState(false);
-    const [newColumn, setNewColumn] = useState(false);
+    const [createColumn, setCreateColumn] = useState(false);
 
     const [data, setData] = useState(fakeData);
     const allColumns = data.columns;
@@ -121,12 +122,12 @@ const KanbanBoard = () => {
                                 return <KanbanColumn index={index} color={column.color} title={column.title} tasks={tasks} key={column.id} id={column.id}/>
                             })}
                             {provided.placeholder}
-                            <Button variant="outlined" className='kanban-board_add'>New Column</Button>
-
+                            <Button variant="outlined" className='kanban-board_add' onClick={() => setCreateColumn(true)}>New Column</Button>
                         </div>
                     )}
                 </Droppable>
             </DragDropContext>
+            <CreateColumnModal createColumn={createColumn} setCreateColumn={setCreateColumn}/>
         </>
     )
 }

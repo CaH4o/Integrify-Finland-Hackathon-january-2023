@@ -34,7 +34,7 @@ const CreateTaskModal = (props:CreateTaskModalProps) => {
         <>
             <div className='kanban-modal_overlay' onClick={() => setCreateTask(false)}></div>
             <div className='kanban-modal'>
-                <h1>Edit Task</h1>
+                <h1>Create Task</h1>
                 <Box component="form"
                      className='kanban-modal_form'
                      sx={{
@@ -80,23 +80,23 @@ const CreateTaskModal = (props:CreateTaskModalProps) => {
                             <label style={{backgroundColor:"#EB57574f", color: "#EB5757"}} className="container" htmlFor='priority-checkbox_high'>High</label>
                         </div>
                     </div>
-                    <FormControl className='kanban-modal_dropdown'>
-                        <InputLabel id="demo-simple-select-label">Assigned</InputLabel>
-                        {/*<Select*/}
-                        {/*    labelId="demo-simple-select-label"*/}
-                        {/*    id="demo-simple-select"*/}
-                        {/*    // value={taskAssigned!.name}*/}
-                        {/*    label="Assigned"*/}
-                        {/*    onChange={(e:any) => updateDropDownMenu(e)}*/}
-                        {/*>*/}
-                        {/*    /!*<MenuItem value={taskAssigned.name}>{taskAssigned!.name}</MenuItem>*!/*/}
-                        {/*    <MenuItem value={"Boris"}>Boris</MenuItem>*/}
-                        {/*</Select>*/}
-                    </FormControl>
+                    {/*<FormControl className='kanban-modal_dropdown'>*/}
+                    {/*    <InputLabel id="demo-simple-select-label">Assigned</InputLabel>*/}
+                    {/*    /!*<Select*!/*/}
+                    {/*    /!*    labelId="demo-simple-select-label"*!/*/}
+                    {/*    /!*    id="demo-simple-select"*!/*/}
+                    {/*    /!*    // value={taskAssigned!.name}*!/*/}
+                    {/*    /!*    label="Assigned"*!/*/}
+                    {/*    /!*    onChange={(e:any) => updateDropDownMenu(e)}*!/*/}
+                    {/*    /!*>*!/*/}
+                    {/*    /!*    /!*<MenuItem value={taskAssigned.name}>{taskAssigned!.name}</MenuItem>*!/*!/*/}
+                    {/*    /!*    <MenuItem value={"Boris"}>Boris</MenuItem>*!/*/}
+                    {/*    /!*</Select>*!/*/}
+                    {/*</FormControl>*/}
                 </Box>
                 <div className='kanban-modal_buttons'>
                     <Button onClick={() => setCreateTask(false)} variant="outlined">Close</Button>
-                    <Button variant="contained">Save</Button>
+                    <Button variant="contained">Create</Button>
                 </div>
 
             </div>
