@@ -1,14 +1,18 @@
 import { Box } from '@mui/material'
 import './_auth.scss';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ForgotPassword from '../../ForgotPassword/ForgotPassword'
 import SignIn from "../../components/SignIn/SignIn";
 import SignUp from "../../components/SignUp/SignUp";
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 const Auth = () => {
     const [signIn, setSignIn] = useState<boolean>(true);
     const [signUp, setSignUp] = useState<boolean>(false);
     const [forgotPassword, setForgotPassword] = useState<boolean>(false);
+    
+    const authenticated = useSelector((state: RootState) => state.user.authentication)
     
     const showSignIn = () => {
         setSignIn(true);
@@ -27,6 +31,10 @@ const Auth = () => {
         setSignUp(false);
         setForgotPassword(true);
     }
+
+    useEffect(() => {
+        console.log(authenticated)
+    }, [showSignIn, showSignUp, showForgotPassword])
   return (
     <div className="area" >
         <Box className='modal-login'>
