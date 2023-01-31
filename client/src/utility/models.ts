@@ -1,6 +1,6 @@
 //interfaces and models
 import { ColumnColors } from "./types";
-import { Tasks } from "./types";
+import { Tasks, Users } from "./types";
 
 
 export interface UserState extends TaskPersonData {
