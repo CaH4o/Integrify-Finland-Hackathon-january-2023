@@ -94,3 +94,16 @@ const fakeData: FakeData = {
   columnOrder: ["column-1", "column-2", "column-3", "column-4"],
 };
 export default fakeData;
+
+const fakeTask = {
+  "task-7" : {
+    id: "task-7",
+    title: "Dummy data",
+    description: "Dummy data tasking",
+    priority: taskPriority.Low,
+    assigned: {
+      avatar: "./photo-1438761681033-6461ffad8d80.jpg",
+      name: "Dummy",
+    },
+  }
+}
