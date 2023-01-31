@@ -40,6 +40,10 @@
     align-items: center;
   }
 
+  &:not(:first-child) .kanban-column_title {
+    margin-bottom: 25px;
+  }
+
   &:last-child {
     margin-right: 5px;
   }

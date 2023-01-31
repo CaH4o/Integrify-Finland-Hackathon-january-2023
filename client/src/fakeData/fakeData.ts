@@ -100,7 +100,11 @@ const fakeTask = {
     id: "task-7",
     title: "Dummy data",
     description: "Dummy data tasking",
-    priority: taskPriority.Low,
+    priority: {
+      text: "Low",
+      color: "#219653",
+      background: "#2196534f",
+    },
     assigned: {
       avatar: "./photo-1438761681033-6461ffad8d80.jpg",
       name: "Dummy",

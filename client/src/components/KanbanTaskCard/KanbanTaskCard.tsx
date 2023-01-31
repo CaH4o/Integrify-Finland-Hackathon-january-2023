@@ -33,6 +33,9 @@ const KanbanTaskCard = (props: KanbanTaskCardProps) => {
                          {...provided.dragHandleProps}
                     >
                         <EditIcon className='kanban-task_edit' onClick={() => setEditTask(true)}/>
+                        <span
+                            style={{backgroundColor: `${priority.color}`}}
+                            className='kanban-task_item-priority'></span>
                         <div className='kanban-task_item'>
                             <h4>Title</h4>
                             <p className='kanban-task_item-title'>{title}</p>

@@ -30,10 +30,11 @@ const KanbanColumn = (props:KanbanColumnProps) => {
                         style={{backgroundColor: `${color}`}}>
                         {title}
                     </h2>
-                    <Button variant="outlined" className='kanban-column_btn'>
+                    {index===0 &&
+                        <Button variant="outlined" className='kanban-column_btn'>
                         Add Task
                         <AddIcon/>
-                    </Button>
+                    </Button>}
                     <Droppable droppableId={id} type='task'>
                         {(provided) => (
                             //
