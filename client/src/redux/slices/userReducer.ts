@@ -17,7 +17,7 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-   logIn: function (state, action) {
+   logIn: function (state) {
     state.authentication = true
    },
     logOut: function (state: UserState) {
@@ -58,7 +58,7 @@ const userSlice = createSlice({
 
 const userReducer = userSlice.reducer;
 export default userReducer;
-export const {logOut, updateUser} = userSlice.actions;
+export const {logIn,logOut, updateUser} = userSlice.actions;
 
 const url = "https://localhost:8080";
 

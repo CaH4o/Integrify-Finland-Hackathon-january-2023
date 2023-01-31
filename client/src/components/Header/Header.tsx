@@ -4,8 +4,14 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import React from 'react';
 import {NavLink} from "react-router-dom";
+import { logOut } from '../../redux/slices/userReducer';
+import { useDispatch } from 'react-redux';
+
 
 const Header = () => {
+
+    const dispatch = useDispatch();
+
     return (
         <div className='header'>
             <div className="header-content">
@@ -19,8 +25,8 @@ const Header = () => {
                         <AccountCircleIcon/>
                         <h4>Settings</h4>
                     </NavLink>
-                    <NavLink to={"/logout"} className="header-content_navbar-item">
-                        <LogoutIcon/>
+                    <NavLink to={"/login"} className="header-content_navbar-item">
+                        <LogoutIcon onClick={() => dispatch(logOut())}/>
                         <h4>Logout</h4>
                     </NavLink>
                 </nav>
