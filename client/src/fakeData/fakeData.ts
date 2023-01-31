@@ -7,115 +7,61 @@ const fakeData: FakeData = {
     "task-1": {
       id: "task-1",
       title: "Edit text",
-      date: "May 27, 2019 12:06 PM",
       description: "Need to edit text in journal",
       priority: taskPriority.Low,
-      creator: {
-        avatar: "./photo-1438761681033-6461ffad8d80.jpg",
-        name: "Jenny Wilson",
-        position: "Marketing",
-        email: "henny@mail.com",
-      },
       assigned: {
         avatar: "./photo-1438761681033-6461ffad8d80.jpg",
         name: "Adam Sandler",
-        position: "Software",
-        email: "adam.sandler@gmail.com",
       },
     },
     "task-2": {
       id: "task-2",
       title: "Create new topic",
-      date: "February 22, 2023 12:15 PM",
       description: "Create new topic for journal",
       priority: taskPriority.High,
-      creator: {
-        avatar: "./photo-1438761681033-6461ffad8d80.jpg",
-        name: "Jenny Wilson",
-        position: "Marketing",
-        email: "henny@mail.com",
-      },
       assigned: {
         avatar: "./photo-1438761681033-6461ffad8d80.jpg",
         name: "Adam Sandler",
-        position: "Software",
-        email: "adam.sandler@gmail.com",
       },
     },
     "task-3": {
       id: "task-3",
       title: "Test features",
-      date: "January 18, 2025 12:06 PM",
       description: "Test some features",
       priority: taskPriority.Medium,
-      creator: {
-        avatar: "./photo-1438761681033-6461ffad8d80.jpg",
-        name: "Someone New",
-        position: "Marketing",
-        email: "henny@mail.com",
-      },
       assigned: {
         avatar: "./photo-1438761681033-6461ffad8d80.jpg",
         name: "Adam Sandler",
-        position: "Software",
-        email: "adam.sandler@gmail.com",
       },
     },
     "task-4": {
       id: "task-4",
       title: "Create new topic",
-      date: "February 22, 2023 12:15 PM",
       description: "Create new topic for journal",
       priority: taskPriority.Low,
-      creator: {
-        avatar: "./photo-1438761681033-6461ffad8d80.jpg",
-        name: "Jenny Wilson",
-        position: "Marketing",
-        email: "henny@mail.com",
-      },
       assigned: {
         avatar: "./photo-1438761681033-6461ffad8d80.jpg",
         name: "Adam Sandler",
-        position: "Software",
-        email: "adam.sandler@gmail.com",
       },
     },
     "task-5": {
       id: "task-5",
       title: "Edit text",
-      date: "May 27, 2019 12:06 PM",
       description: "Need to edit text in journal",
       priority: taskPriority.High,
-      creator: {
-        avatar: "./photo-1438761681033-6461ffad8d80.jpg",
-        name: "Jenny Wilson",
-        position: "Marketing",
-        email: "henny@mail.com",
-      },
       assigned: {
         avatar: "./photo-1438761681033-6461ffad8d80.jpg",
         name: "Adam Sandler",
-        position: "Software",
-        email: "adam.sandler@gmail.com",
       },
     },
     "task-6": {
       id: "task-6",
       title: "Create new topic",
-      date: "February 22, 2023 12:15 PM",
       description: "Create new topic for journal",
       priority: taskPriority.High,
-      creator: {
-        avatar: "./photo-1438761681033-6461ffad8d80.jpg",
-        name: "Jenny Wilson",
-        position: "Marketing",
-        email: "henny@mail.com",
-      },
       assigned: {
         avatar: "./photo-1438761681033-6461ffad8d80.jpg",
         name: "Adam Sandler",
-        position: "Software",
-        email: "adam.sandler@gmail.com",
       },
     },
   },
@@ -148,3 +94,16 @@ const fakeData: FakeData = {
   columnOrder: ["column-1", "column-2", "column-3", "column-4"],
 };
 export default fakeData;
+
+const fakeTask = {
+  "task-7" : {
+    id: "task-7",
+    title: "Dummy data",
+    description: "Dummy data tasking",
+    priority: taskPriority.Low,
+    assigned: {
+      avatar: "./photo-1438761681033-6461ffad8d80.jpg",
+      name: "Dummy",
+    },
+  }
+}

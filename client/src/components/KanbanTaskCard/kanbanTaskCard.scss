@@ -13,6 +13,12 @@
   background-color: #fff;
   margin-bottom: 15px;
   transition: background .1s linear;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   &_edit {
     position: absolute;
@@ -31,6 +37,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
+
 
     &:not(:last-child) {
       margin-bottom: 25px;

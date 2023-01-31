@@ -1,36 +1,23 @@
 import '../kanban-modal.scss';
-import React, {useState} from 'react'
+import React, {ChangeEvent, FormEvent, useState} from 'react'
 import * as ReactDOM from 'react-dom';
-import {Priority, TaskPersonData} from "../../../utility/models";
 import {Box, Button, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {taskPriority} from "../../../utility/TaskPriorities";
 
-interface EditTaskModalProps {
-    data: {
-        id: string,
-        title: string,
-        description: string,
-        priority: Priority,
-        assigned: TaskPersonData,
-    }
-    editTask: boolean,
-    setEditTask:  React.Dispatch<React.SetStateAction<boolean>>,
+interface CreateTaskModalProps {
+    createTask: boolean,
+    setCreateTask:  React.Dispatch<React.SetStateAction<boolean>>,
 }
-const EditTaskModal = (props:EditTaskModalProps) => {
-    const {editTask, setEditTask} = props;
-    const {id, title, assigned, description, priority} = props.data;
+const CreateTaskModal = (props:CreateTaskModalProps) => {
+    const {createTask, setCreateTask} = props;
 
-    const [priorityType, setPriorityType] = useState(priority);
-    const [taskTitle, setTaskTitle] = useState(title);
-    const [taskDescription, setTaskDescription] = useState(description);
-    const [taskAssigned, setTaskAssigned] = useState(assigned);
+    const [priorityType, setPriorityType] = useState(taskPriority.Low);
+    const [taskTitle, setTaskTitle] = useState("");
+    const [taskDescription, setTaskDescription] = useState("");
+    const [taskAssigned, setTaskAssigned] = useState("");
 
-    if(!editTask ) return null
+    if(!createTask ) return null
 
-    const updateCheckBox = (event:React.FormEvent<HTMLInputElement>) => {
-        const priority = taskPriority[event.currentTarget.value];
-        setPriorityType(priority);
-    }
 
     const updateDropDownMenu = (event:any) => {
         console.log(event.target.value);
@@ -38,18 +25,23 @@ const EditTaskModal = (props:EditTaskModalProps) => {
         const person = get data from all users, find person
          */
     }
+    const handleCheckbox = (string:string) => {
+      const task = taskPriority[string];
+      setPriorityType(task);
+    }
+
     return ReactDOM.createPortal(
         <>
-            <div className='kanban-modal_overlay' onClick={() => setEditTask(false)}></div>
+            <div className='kanban-modal_overlay' onClick={() => setCreateTask(false)}></div>
             <div className='kanban-modal'>
                 <h1>Edit Task</h1>
                 <Box component="form"
                      className='kanban-modal_form'
-                    sx={{
-                        '& > :not(style)': { m: 1, width: '25ch' },
-                    }}
-                    noValidate
-                    autoComplete="off"
+                     sx={{
+                         '& > :not(style)': { m: 1, width: '25ch' },
+                     }}
+                     noValidate
+                     autoComplete="off"
                 >
                     <TextField id="outlined-basic" label="Title" variant="outlined" defaultValue={taskTitle}/>
                     <TextField
@@ -62,7 +54,7 @@ const EditTaskModal = (props:EditTaskModalProps) => {
                     <div className='kanban-modal_form-checkbox'>
                         <div>
                             <input type="radio"
-                                   onChange={(e:React.FormEvent<HTMLInputElement>) => updateCheckBox(e)}
+                                   onChange={(e:React.FormEvent<HTMLInputElement>) => handleCheckbox(e.currentTarget.value)}
                                    id='priority-checkbox_low'
                                    value="Low"
                                    checked={priorityType.text === 'Low'}
@@ -71,7 +63,7 @@ const EditTaskModal = (props:EditTaskModalProps) => {
                         </div>
                         <div>
                             <input type="radio"
-                                   onChange={(e:React.FormEvent<HTMLInputElement>) => updateCheckBox(e)}
+                                   onChange={(e:React.FormEvent<HTMLInputElement>) => handleCheckbox(e.currentTarget.value)}
                                    id='priority-checkbox_medium'
                                    value="Medium"
                                    checked={priorityType.text === 'Medium'}
@@ -80,7 +72,7 @@ const EditTaskModal = (props:EditTaskModalProps) => {
                         </div>
                         <div>
                             <input type="radio"
-                                   onChange={(e:React.FormEvent<HTMLInputElement>) => updateCheckBox(e)}
+                                   onChange={(e:React.FormEvent<HTMLInputElement>) => handleCheckbox(e.currentTarget.value)}
                                    id='priority-checkbox_high'
                                    value="High"
                                    checked={priorityType.text === 'High'}
@@ -90,20 +82,20 @@ const EditTaskModal = (props:EditTaskModalProps) => {
                     </div>
                     <FormControl className='kanban-modal_dropdown'>
                         <InputLabel id="demo-simple-select-label">Assigned</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={taskAssigned.name}
-                            label="Assigned"
-                            onChange={(e:any) => updateDropDownMenu(e)}
-                        >
-                            <MenuItem value={taskAssigned.name}>{taskAssigned.name}</MenuItem>
-                            <MenuItem value={"Boris"}>Boris</MenuItem>
-                        </Select>
+                        {/*<Select*/}
+                        {/*    labelId="demo-simple-select-label"*/}
+                        {/*    id="demo-simple-select"*/}
+                        {/*    // value={taskAssigned!.name}*/}
+                        {/*    label="Assigned"*/}
+                        {/*    onChange={(e:any) => updateDropDownMenu(e)}*/}
+                        {/*>*/}
+                        {/*    /!*<MenuItem value={taskAssigned.name}>{taskAssigned!.name}</MenuItem>*!/*/}
+                        {/*    <MenuItem value={"Boris"}>Boris</MenuItem>*/}
+                        {/*</Select>*/}
                     </FormControl>
                 </Box>
                 <div className='kanban-modal_buttons'>
-                    <Button onClick={() => setEditTask(false)} variant="outlined">Close</Button>
+                    <Button onClick={() => setCreateTask(false)} variant="outlined">Close</Button>
                     <Button variant="contained">Save</Button>
                 </div>
 
@@ -113,4 +105,4 @@ const EditTaskModal = (props:EditTaskModalProps) => {
     )
 }
 
-export default EditTaskModal
+export default CreateTaskModal;
