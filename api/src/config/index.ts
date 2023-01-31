@@ -7,10 +7,10 @@ const dev = {
     url: process.env.DB_URL || '',
   },
   app: {
-    port: process.env.SERVER_PORT,
+    port: process.env.SERVER_PORT || '',
   },
   jwt: {
-    access: process.env.JWT_ACCESS,
+    access: process.env.JWT_ACCESS || '',
   },
 };
 
