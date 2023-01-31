@@ -6,14 +6,16 @@ import SignIn from "../../components/SignIn/SignIn";
 import SignUp from "../../components/SignUp/SignUp";
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
     const [signIn, setSignIn] = useState<boolean>(true);
     const [signUp, setSignUp] = useState<boolean>(false);
     const [forgotPassword, setForgotPassword] = useState<boolean>(false);
     
-    const authenticated = useSelector((state: RootState) => state.user.authentication)
-    
+    // const nav = useNavigate();
+    // const authenticated = useSelector((state: RootState) => state.user.authentication)
+
     const showSignIn = () => {
         setSignIn(true);
         setSignUp(false);
@@ -32,9 +34,9 @@ const Auth = () => {
         setForgotPassword(true);
     }
 
-    useEffect(() => {
-        console.log(authenticated)
-    }, [showSignIn, showSignUp, showForgotPassword])
+    // useEffect(() => {
+    //     console.log(authenticated)
+    // }, [showSignIn, showSignUp, showForgotPassword])
   return (
     <div className="area" >
         <Box className='modal-login'>
