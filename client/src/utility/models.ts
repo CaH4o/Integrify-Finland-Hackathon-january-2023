@@ -2,13 +2,11 @@
 import { ColumnColors } from "./types";
 import { Tasks } from "./types";
 
-
 export interface UserState extends TaskPersonData {
   loading: boolean;
   error: boolean;
   authentication: boolean;
 }
-
 
 export interface Column {
   name: string;
@@ -53,4 +51,12 @@ export interface FakeData {
     [key: string]: ColumnData;
   };
   columnOrder: string[];
+}
+
+export interface GithubIssue {
+  html_url: string;
+  title: string;
+  state: string;
+  created_at: string;
+  body: string;
 }
