@@ -6,6 +6,7 @@ import { Tasks } from "./types";
 export interface UserState extends TaskPersonData {
   loading: boolean;
   error: boolean;
+  authentication: boolean;
 }
 
 

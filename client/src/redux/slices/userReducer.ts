@@ -10,13 +10,18 @@ const initialState: UserState = {
   position: "",
   error: false,
   loading: false,
+  authentication: false,
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+   logIn: function (state, action) {
+    state.authentication = true
+   },
     logOut: function (state: UserState) {
+      state.authentication = false
       const email = "";
       const avatar = "";
       const name = "";
