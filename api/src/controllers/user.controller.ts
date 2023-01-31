@@ -1,16 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import dev from '../config';
 import User from '../models/User';
 import { comparePassword, encryptPassword } from '../util/securePassword';
 
 // POST /users/register
 
-export const registerUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const registerUser = async (req: Request, res: Response) => {
   try {
     // get data from request body
     const { email, password } = req.body;
@@ -52,11 +48,7 @@ export const registerUser = async (
 
 // POST /users/login
 
-export const loginUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const loginUser = async (req: Request, res: Response) => {
   try {
     // get data from request body
     const { email, password } = req.body;
@@ -118,13 +110,94 @@ export const loginUser = async (
   }
 };
 
+// GET /users/check-login
+
+export const checkUserLogin = async (req: Request, res: Response) => {
+  try {
+    // check if there is a cookie in request headers
+    if (!req.headers.cookie) {
+      return res.status(401).json({
+        success: false,
+        error: 'User is not logged in',
+      });
+    }
+
+    // get token from cookie
+    const token = req.headers.cookie.split('=')[1];
+    if (!token) {
+      return res.status(401).send({
+        success: false,
+        error: 'No token found',
+      });
+    }
+
+    // verify token
+    const verify = jwt.verify(token, String(dev.jwt.access));
+    if (!verify) {
+      return res.status(401).send({
+        success: false,
+        error: 'Token not valid',
+      });
+    }
+
+    // send success response
+    return res.status(200).send({
+      success: true,
+    });
+  } catch (error) {
+    // handle error
+    return res.status(500).send({
+      success: false,
+      error: 'Server error',
+    });
+  }
+};
+
+// GET /users/logout
+
+export const logoutUser = async (req: Request, res: Response) => {
+  try {
+    // check if cookie exists
+    if (!req.headers.cookie) {
+      return res.status(404).send({
+        success: false,
+        message: 'No cookie found',
+      });
+    }
+
+    // check if token exists
+    const token = req.headers.cookie.split('=')[1];
+
+    if (!token) {
+      return res.status(404).send({
+        success: false,
+        message: 'No token found',
+      });
+    }
+
+    // decode jwt token
+    const { _id } = jwt.decode(token) as JwtPayload;
+
+    // delete cookie
+    res.clearCookie(`${_id}`);
+
+    // send success response
+    return res.status(200).send({
+      success: true,
+      message: 'User logged out',
+    });
+  } catch (error) {
+    // handle error
+    return res.status(500).send({
+      success: false,
+      error: 'Server error',
+    });
+  }
+};
+
 // GET /users
 
-export const getAllUsers = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const getAllUsers = async (req: Request, res: Response) => {
   try {
     // find all users
     const users = await User.find({}, '_id email');
@@ -142,11 +215,7 @@ export const getAllUsers = async (
 
 // GET /users/:userId
 
-export const getUserById = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const getUserById = async (req: Request, res: Response) => {
   try {
     // find user by id
     const user = await User.findById(req.params.userId, '_id email');
@@ -164,11 +233,7 @@ export const getUserById = async (
 
 // PUT /users/:userId
 
-export const updateUserById = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const updateUserById = async (req: Request, res: Response) => {
   try {
     // get data from request body
     const update = req.body;
@@ -202,11 +267,7 @@ export const updateUserById = async (
 
 // DELETE /users/:userId
 
-export const deleteUserById = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const deleteUserById = async (req: Request, res: Response) => {
   try {
     // find user by id and delete
     const deletedUser = await User.findByIdAndDelete(req.params.userId);
