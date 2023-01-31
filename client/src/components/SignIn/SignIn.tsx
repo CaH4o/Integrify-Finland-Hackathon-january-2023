@@ -30,16 +30,16 @@ const SignIn = ({showSignUp, showForgotPassword, signIn} : SignInProps) => {
       'http://localhost:4000/api/v1/users/login',
       { email, password }
     );
-    console.log(response);
   }
+
   return (
     <Box className="signIn" sx={{ display: signIn ? "flex" : "none"}}>
         <h1 className="signIn__heading">LOG IN</h1>
-        <input type={"email"} className="signIn__email" placeholder="Email" onChange={emailChangeHandler}/>
-        <input type={"password"} className="signIn__password" placeholder="Password" onChange={passwordChangeHandler}/>
+        <input type={"email"} className="signIn__email" placeholder="Email" onChange={emailChangeHandler} name='email'/>
+        <input type={"password"} className="signIn__password" placeholder="Password" onChange={passwordChangeHandler} name='password'/>
         <div className="rememberMe">
-        <input type="checkbox" name="remember me" id="remember" />
-        <label htmlFor="remember">Remember me</label>
+            <input type="checkbox" name="remember me" id="remember" />
+            <label htmlFor="remember">Remember me</label>
         </div>
         <button className="login__btn" onClick={submitHandler}>LOG IN</button>
         <p className="forgot" onClick={showForgotPassword}>Forgot password?</p>
@@ -58,5 +58,4 @@ const SignIn = ({showSignUp, showForgotPassword, signIn} : SignInProps) => {
     </Box>
   )
 }
-
 export default SignIn

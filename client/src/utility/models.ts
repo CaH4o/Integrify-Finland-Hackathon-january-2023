@@ -25,18 +25,14 @@ export interface ColumnData {
 export interface TaskData {
   id: string;
   title: string;
-  date: string;
   description: string;
   priority: Priority;
-  creator: TaskPersonData;
   assigned: TaskPersonData;
 }
 
 export interface TaskPersonData {
   avatar: string;
   name: string;
-  position: string;
-  email: string;
 }
 
 export interface Priority {

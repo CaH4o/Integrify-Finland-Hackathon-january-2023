@@ -1,5 +1,5 @@
 import '../kanban-modal.scss';
-import React, {ChangeEvent, FormEvent, useState} from 'react'
+import React, {useState} from 'react'
 import * as ReactDOM from 'react-dom';
 import {Priority, TaskPersonData} from "../../../utility/models";
 import {Box, Button, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
@@ -9,10 +9,8 @@ interface EditTaskModalProps {
     data: {
         id: string,
         title: string,
-        date: string,
         description: string,
         priority: Priority,
-        creator: TaskPersonData,
         assigned: TaskPersonData,
     }
     editTask: boolean,
@@ -20,7 +18,7 @@ interface EditTaskModalProps {
 }
 const EditTaskModal = (props:EditTaskModalProps) => {
     const {editTask, setEditTask} = props;
-    const {id, title, assigned, creator, description, date, priority} = props.data;
+    const {id, title, assigned, description, priority} = props.data;
 
     const [priorityType, setPriorityType] = useState(priority);
     const [taskTitle, setTaskTitle] = useState(title);
