@@ -1,9 +1,9 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 
 import { TaskPersonData } from "../../utility/models";
 
-export default function SettingMainAccount() {
+export default function SettingMainAccount(): JSX.Element {
   const [personData, setPersonData] = useState<TaskPersonData>({
     avatar: "",
     name: "",

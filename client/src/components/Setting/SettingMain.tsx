@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from "react";
+import React, { useState, MouseEvent } from "react";
 import {
   Avatar,
   Box,
@@ -12,7 +12,7 @@ import {
 
 import SettingMainAccount from "./SettingMainAccount";
 
-export default function SettingMain() {
+export default function SettingMain(): JSX.Element {
   const [renderSetting, setRenderSetting] = useState<string>("account");
 
   function handleClickSetting(event: MouseEvent<HTMLButtonElement>) {
