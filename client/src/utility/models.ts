@@ -1,13 +1,12 @@
 //interfaces and models
 import { ColumnColors } from "./types";
-import { Tasks, Users } from "./types";
-
+import { Tasks } from "./types";
 
 export interface UserState extends TaskPersonData {
   loading: boolean;
   error: boolean;
+  authentication: boolean;
 }
-
 
 export interface Column {
   name: string;
@@ -18,24 +17,30 @@ export interface ColumnData {
   id: string;
   title: string;
   taskIds: string[];
-  color: ColumnColors;
+  color: string;
+}
+
+export interface GithubIssue {
+  id: number;
+  html_url: string;
+  title: string;
+  state: string;
+  created_at: string;
+  body: string;
 }
 
 export interface TaskData {
   id: string;
   title: string;
-  date: string;
   description: string;
   priority: Priority;
-  creator: TaskPersonData;
   assigned: TaskPersonData;
 }
 
 export interface TaskPersonData {
   avatar: string;
   name: string;
-  position: string;
-  email: string;
+  id: number;
 }
 
 export interface Priority {

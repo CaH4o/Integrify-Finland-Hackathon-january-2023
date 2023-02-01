@@ -2,12 +2,14 @@
 
 .kanban-task_person {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  justify-self: flex-end;
+  width: 100%;
 
   &-image {
     height: 40px;
     width: 40px;
-    margin-right: 15px;
+    margin-right: 5px;
     border-radius: 10px;
     background-position: center;
     object-fit: cover;

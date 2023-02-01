@@ -1,5 +1,5 @@
 //types
-import { Column, TaskData, TaskPersonData } from "./models";
+import { Column, TaskData, TaskPersonData, GithubIssue } from "./models";
 
 export enum ColumnColors {
     Red = '#EB5757',
@@ -14,4 +14,4 @@ export enum ColumnColors {
 export type Tasks = TaskData[];
 export type Columns = Column[];
 export type Users = TaskPersonData[];
-
+export type GithubIssues = GithubIssue[];

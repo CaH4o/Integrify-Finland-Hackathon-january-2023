@@ -1,14 +1,13 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 
 import { TaskPersonData } from "../../utility/models";
 
-export default function SettingMainAccount() {
+export default function SettingMainAccount(): JSX.Element {
   const [personData, setPersonData] = useState<TaskPersonData>({
     avatar: "",
     name: "",
-    position: "",
-    email: "",
+      id: 0,
   });
 
   function handleChange(
@@ -27,8 +26,7 @@ export default function SettingMainAccount() {
     const resetData: TaskPersonData = {
       avatar: "",
       name: "",
-      position: "",
-      email: "",
+      id: 0,
     };
     setPersonData(resetData);
   }
@@ -47,7 +45,7 @@ export default function SettingMainAccount() {
     >
       <Box component="div">
         <Typography gutterBottom variant="h5" component="div">
-          Accaunt Settings
+          Account Settings
         </Typography>
       </Box>
       <Box component="div" sx={{ display: "flex", gap: "1.3rem" }}>
@@ -88,25 +86,6 @@ export default function SettingMainAccount() {
             width: "50%",
           }}
         >
-          <TextField
-            label="Email"
-            name="email"
-            type="email"
-            value={personData.email}
-            onChange={handleChange}
-            required
-            helperText="Please fill your email here."
-          />
-          <TextField
-            label="Position"
-            name="position"
-            type="text"
-            value={personData.position}
-            onChange={handleChange}
-            required
-            helperText="Please fill your position here."
-          />
-        </Box>
       </Box>
       <Box sx={{ height: "100%" }}></Box>
       <Box component="div" sx={{ display: "flex", gap: "1.3rem" }}>
@@ -122,6 +101,7 @@ export default function SettingMainAccount() {
           Cancel
         </Button>
       </Box>
+    </Box>
     </Box>
   );
 }

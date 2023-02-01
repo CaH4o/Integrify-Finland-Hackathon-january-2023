@@ -13,24 +13,49 @@
   background-color: #fff;
   margin-bottom: 15px;
   transition: background .1s linear;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 
-  &_edit {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &_icons {
     position: absolute;
     top: 8px;
     right: 15px;
-    fill: rgba(79, 79, 79, 0.35)!important;
-    cursor: pointer;
-    font-size: 28px!important;
-    transition: all .1s linear;
 
-    &:hover {
-      fill: variables.$main-dark-grey!important;
+    & svg {
+      cursor: pointer;
+      font-size: 28px!important;
+      fill: rgba(79, 79, 79, 0.35)!important;
+      transition: all .1s linear;
+
+      &:hover {
+        fill: variables.$main-dark-grey!important;
+      }
+
+      &:first-child {
+        margin-right: 5px;
+      }
     }
+
   }
   &_item {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
+
+    &-priority {
+      position: absolute;
+      width:8px;
+      height: 100%;
+      left: 0;
+      top:0;
+    }
 
     &:not(:last-child) {
       margin-bottom: 25px;
@@ -44,16 +69,10 @@
       margin-bottom: 10px;
     }
 
-    & #task-priority {
-      padding: 7px;
-      font-size: 14px;
-      font-weight: 500;
-      border-radius: 10px;
-    }
-
     &-title {
       font-weight: 500;
       color: variables.$main-black;
+      font-size: 20px;
     }
 
     &-description {
@@ -67,12 +86,6 @@
     width: 90px;
     font-weight: 400;
     font-size: 15px;
-  }
-
-  &_item:nth-child(3) p,
-  &_item:nth-child(3) h4,
-  {
-    font-size: 13px;
   }
 }
 

@@ -1,94 +1,79 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {ColumnColors, Columns} from "../../utility/types";
+import {ColumnData} from "../../utility/models";
 
-import { Column, TaskData } from "../../utility/models";
-import { Columns } from "../../utility/types";
-
-const initialState: Columns = [
-  { name: "To Do", tasks: [] },
-  { name: "Done", tasks: [] },
-];
+const initialState: ColumnData[] = [
+  { id: "column-1",
+    title: "Pending",
+    taskIds: ["task-1", "task-2"],
+    color: ColumnColors.Blue,
+  },
+  { id: "column-2",
+      title: "In Process",
+      taskIds: ["task-3"],
+      color: ColumnColors.Yellow,
+    },
+{     id: "column-3",
+      title: "On Hold",
+      taskIds: [],
+      color: ColumnColors.Red,
+},
+{ id: "column-4",
+      title: "Finished",
+      taskIds: ["task-5", "task-6","task-4"],
+      color: ColumnColors.Green,
+}];
 
 const columnSlice = createSlice({
   name: "column",
   initialState,
   reducers: {
-    createColumn: function (state: Columns, action: PayloadAction<Column>) {
-      return [...state, action.payload];
+        updateColumn: (state, action) => {
+        const {columnId, newTask} = action.payload;
+        const updatedIndex = state.findIndex(c => c.id === columnId);
+        return state.map((column, index) => {
+            if(index === updatedIndex) {
+                return  {...column, taskIds: [...column.taskIds, newTask.id]}
+            } else {
+                return column
+            }
+        })
     },
-    deleteColumn: function (state: Columns, action: PayloadAction<Column>) {
-      const column: Column = state.find(function (c: Column) {
-        return c.name === action.payload.name;
-      })!;
-
-      if (!column.tasks.length) {
-        return state.filter(function (c: Column) {
-          return c.name !== action.payload.name;
-        });
-      }
+        updateColumnTaskOrder: (state, action) => {
+        const {currId, newTasksIds} = action.payload;
+        return state.map((column) => {
+            if(column.id === currId) {
+                return  {...column, taskIds: [...newTasksIds]}
+            } else {
+                return column
+            }
+        })
     },
-    addedTask: function (state: Columns, action: PayloadAction<Column>) {
-      return state.map(function (c: Column) {
-        return c.name === action.payload.name
-          ? { ...c, task: [...c.tasks, ...action.payload.tasks] }
-          : c;
-      });
-    },
-    removeTask: function (state: Columns, action: PayloadAction<Column>) {
-      let column: Column = state.find(function (c: Column) {
-        return c.name === action.payload.name;
-      })!;
-
-      column = {
-        ...column,
-        tasks: column.tasks.filter(function (t_s: TaskData) {
-          return action.payload.tasks.some(function (t_pa: TaskData) {
-            return t_s.id !== t_pa.id;
-          });
-        }),
-      };
-
-      return state.map(function (c: Column) {
-        return c.name === column.name ? column : c;
-      });
-    },
-    moveLeft: function (state: Columns, action: PayloadAction<Column>) {
-      const index: number = state.findIndex(function (c: Column) {
-        return c.name === action.payload.name;
-      });
-
-      if (index) {
-        const columns: Columns = JSON.parse(JSON.stringify(state));
-        [columns[index - 1], columns[index]] = [
-          columns[index],
-          columns[index - 1],
-        ];
-        return columns;
-      }
-    },
-    moveRight: function (state: Columns, action: PayloadAction<Column>) {
-      const index: number = state.findIndex(function (c: Column) {
-        return c.name === action.payload.name;
-      });
-
-      if (index < state.length - 1) {
-        const columns: Columns = JSON.parse(JSON.stringify(state));
-        [columns[index + 1], columns[index]] = [
-          columns[index],
-          columns[index + 1],
-        ];
-        return columns;
-      }
-    },
-  },
+        createNewColumn: (state, action) => {
+        return [...state, action.payload];
+      },
+        removeTaskFromColumn: (state, action) => {
+        const {columnId, id} = action.payload;
+        const column = state.find(col => col.id === columnId);
+        if(column) {
+            const oldIds = Array.from(column.taskIds);
+            const newIds = oldIds.filter(taskId => taskId !== id);
+            console.log(newIds);
+            return state.map(c => {
+                if(c.id === column.id) {
+                    return {...c, taskIds : [...newIds]}
+                }
+                return c
+            })
+        }
+      },
+        removeColumn: (state, action) => {
+            return state.filter(column => column.id !== action.payload)
+        }
+  }
 });
 
 const columnReducer = columnSlice.reducer;
 export default columnReducer;
-export const {
-  createColumn,
-  deleteColumn,
-  addedTask,
-  removeTask,
-  moveLeft,
-  moveRight,
-} = columnSlice.actions;
+export const {updateColumn, updateColumnTaskOrder, createNewColumn, removeTaskFromColumn, removeColumn} = columnSlice.actions
+

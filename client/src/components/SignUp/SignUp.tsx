@@ -2,6 +2,9 @@ import React, { MouseEventHandler, useState } from 'react';
 import { Box } from '@mui/material';
 import './SignUp.scss';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logIn } from '../../redux/slices/userReducer';
 
 type SignUpProps = {
   showSignIn: MouseEventHandler<HTMLParagraphElement>;
@@ -16,6 +19,8 @@ const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 const [confirmPassword, setConfirmPassword] = useState('');
 
+const nav = useNavigate();
+const dispatch = useDispatch();
 // form handlers
 const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   setEmail(event.target.value);
@@ -38,6 +43,10 @@ const handleSubmit = async (event: React.SyntheticEvent) => {
     { email, password }
   );
   console.log(response);
+  if(response.data.accessToken !== "") {
+    dispatch(logIn());
+    nav("/")
+  }
 };
   return (
     <Box className="signup" sx={{ display: signUp ? 'flex' : 'none' }}>

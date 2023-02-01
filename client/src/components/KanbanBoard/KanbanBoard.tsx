@@ -2,10 +2,13 @@ import './kanbanboard.scss';
 import KanbanColumn from "../KanbanColumn/KanbanColumn";
 import {Button} from "@mui/material";
 import {DragDropContext, Droppable} from "react-beautiful-dnd";
-import fakeData from "../../fakeData/fakeData";
 import {ColumnData, TaskData} from "../../utility/models";
 import {useState} from "react";
 import React from 'react';
+import CreateColumnModal from "../modals/CreateColumnModal/CreateColumnModal";
+import {useAppDispatch, useAppSelector} from "../../hooks/reduxHooks";
+import {updateColumnTaskOrder} from "../../redux/slices/columnReducer";
+import {updateColumnOrder} from "../../redux/slices/columnOrderReducer";
 
 interface DragResult {
     draggableId: string,
@@ -20,12 +23,14 @@ interface DragDestinationResult {
     index: number,
 }
 const KanbanBoard = () => {
-    const [data, setData] = useState(fakeData);
-    const allColumns = data.columns;
-    const allTasks = data.tasks;
+    const [createColumn, setCreateColumn] = useState(false);
+    const dispatch = useAppDispatch();
+    const allColumns = useAppSelector(state => state.column);
+    const allTasks = useAppSelector(state => state.task);
+    const order = useAppSelector(state => state.order)
 
     const onDragEnd = (result:any) => {
-        const {destination, source, draggableId} = result;
+        const {destination, source, draggableId, type} = result;
 
         if (!destination) {
             return;
@@ -35,76 +40,72 @@ const KanbanBoard = () => {
             return;
         }
 
-        const start = allColumns[source.droppableId];
-        const finish = allColumns[destination.droppableId];
+        if(type === 'column') {
+            const newColumnOrder = Array.from(order);
+            newColumnOrder.splice(source.index, 1);
+            newColumnOrder.splice(destination.index,0, draggableId);
 
-        //SAME COLUMN
-        if(start === finish) {
-            const newTasksIds = Array.from(start.taskIds);
-            newTasksIds.splice(source.index, 1);
-            newTasksIds.splice(destination.index, 0, draggableId);
-
-            const newColumn = {
-                ...start,
-                taskIds: newTasksIds,
-            };
-
-            const newData = {
-                ...data,
-                columns: {
-                    ...data.columns,
-                    [newColumn.id]: newColumn,
-                },
-            };
-            setData(newData);
+            dispatch(updateColumnOrder(newColumnOrder))
+            return;
         }
-        //DIFFERENT COLUMN
-        else {
-            const startTaskIds = Array.from(start.taskIds);
-            startTaskIds.splice(source.index, 1);
-            const newStart = {
-                ...start,
-                    taskIds: startTaskIds,
-            };
-            const finishTaskIds = Array.from(finish.taskIds);
-            finishTaskIds.splice(destination.index, 0, draggableId);
-            const newFinish = {
-                ...finish,
-                taskIds: finishTaskIds
-            };
+        else if(type === 'task') {
+            const start = allColumns.find(col => source.droppableId === col.id);
+            const finish = allColumns.find(col => destination.droppableId === col.id);
 
-            const newState = {
-                ...data,
-                columns: {
-                    ...data.columns,
-                    [newStart.id] : newStart,
-                    [newFinish.id] : newFinish,
-                }
-            };
-            setData(newState);
+            //SAME COLUMN
+            if(start === finish && start) {
+                const newTasksIds = Array.from(start.taskIds);
+                console.log(newTasksIds);
+                newTasksIds.splice(source.index, 1);
+                newTasksIds.splice(destination.index, 0, draggableId);
+                const currId = start.id
+                dispatch(updateColumnTaskOrder({currId, newTasksIds}))
+            }
+
+            //DIFFERENT COLUMN
+            else if (start !== finish && start && finish) {
+                let newTasksIds = Array.from(start.taskIds);
+                newTasksIds.splice(source.index, 1);
+                let currId = start.id;
+                dispatch(updateColumnTaskOrder({currId, newTasksIds}))
+
+                newTasksIds = Array.from(finish.taskIds);
+                newTasksIds.splice(destination.index, 0, draggableId);
+                currId = finish.id;
+                dispatch(updateColumnTaskOrder({currId, newTasksIds}))
+            }
         }
-
     }
 
     return (
-        <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable
-                droppableId={'all-columns'}
-                direction={"horizontal"}
-                type={"column"}>
-                {provided => (
-                    <div className='kanban-board' ref={provided.innerRef}>
-                        {data.columnOrder.map((columnId:string) => {
-                            const column:ColumnData = allColumns[columnId];
-                            const tasks:TaskData[] = column.taskIds.map((taskId:string) => allTasks[taskId]);
+        <>
+            <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable
+                    droppableId={"all-columns"}
+                    direction={"horizontal"}
+                    type={"column"}>
+                    {provided => (
+                        <div className='kanban-board'
+                             ref={provided.innerRef}
+                             {...provided.droppableProps}>
+                            {order.map((columnId, index) => {
+                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                // @ts-ignore
+                                const column:ColumnData = allColumns.find(column => column.id === columnId);
+                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                // @ts-ignore
+                                const tasks:TaskData[] = column.taskIds.map((taskId:string) => allTasks.find(task => task.id === taskId));
 
-                            return <KanbanColumn color={column.color} title={column.title} tasks={tasks} key={column.id} id={column.id}/>
-                        })}
-                        <Button variant="outlined" className='kanban-board_add'>New Column</Button>
-                    </div>
-                )}
-            </Droppable>
-        </DragDropContext>
+                                return <KanbanColumn index={index} color={column.color} title={column.title} tasks={tasks} key={column.id} id={column.id}/>
+                            })}
+                            {provided.placeholder}
+                            <Button variant="outlined" className='kanban-board_add' onClick={() => setCreateColumn(true)}>New Column</Button>
+                        </div>
+                    )}
+                </Droppable>
+            </DragDropContext>
+            <CreateColumnModal createColumn={createColumn} setCreateColumn={setCreateColumn}/>
+        </>
     )
 }
 
