@@ -8,6 +8,7 @@ import React from 'react';
 import {NavLink} from "react-router-dom";
 import { logOut } from '../../redux/slices/userReducer';
 import { useDispatch } from 'react-redux';
+import GithubIssues from '../GithubIssues/GithubIssues';
 
 
 const Header = () => {
@@ -19,10 +20,7 @@ const Header = () => {
             <div className="header-content">
                 <img src="./photo-1438761681033-6461ffad8d80.jpg" alt="avatar"/>
                 <nav className="header-content_navbar">
-                    <button className='header-content_navbar-item header-content_navbar-btn'>
-                        <SyncIcon/>
-                        <h4>Sync GitHub</h4>
-                    </button>
+                  <GithubIssues/>
                     <button className='header-content_navbar-item header-content_navbar-btn'>
                         <CloudQueueIcon/>
                         <h4>Connect<br/>Slack</h4>

@@ -2,13 +2,11 @@
 import { ColumnColors } from "./types";
 import { Tasks } from "./types";
 
-
 export interface UserState extends TaskPersonData {
   loading: boolean;
   error: boolean;
   authentication: boolean;
 }
-
 
 export interface Column {
   name: string;
@@ -22,6 +20,14 @@ export interface ColumnData {
   color: string;
 }
 
+export interface GithubIssue {
+  html_url: string;
+  title: string;
+  state: string;
+  created_at: string;
+  body: string;
+}
+
 export interface TaskData {
   id: string;
   title: string;
@@ -31,9 +37,9 @@ export interface TaskData {
 }
 
 export interface TaskPersonData {
-  avatar: string,
-  name: string,
-  id : number,
+  avatar: string;
+  name: string;
+  id: number;
 }
 
 export interface Priority {
