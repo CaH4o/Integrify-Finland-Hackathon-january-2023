@@ -9,11 +9,15 @@ const columnOrderSlice = createSlice({
     reducers: {
        updateColumnOrder: (state, action) => {
            return action.payload
-       }
+       },
+
+        removeColumnFromOrder: (state, action) => {
+            return state.filter(id => id !== action.payload)
+        },
     }
 });
 
 const columnOrderReducer = columnOrderSlice.reducer;
 export default columnOrderReducer;
-export const { updateColumnOrder } = columnOrderSlice.actions
+export const { updateColumnOrder,removeColumnFromOrder } = columnOrderSlice.actions
 

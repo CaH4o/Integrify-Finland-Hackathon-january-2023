@@ -13,7 +13,7 @@ const initialState: ColumnData[] = [
       taskIds: ["task-3"],
       color: ColumnColors.Yellow,
     },
-{ id: "column-3",
+{     id: "column-3",
       title: "On Hold",
       taskIds: [],
       color: ColumnColors.Red,
@@ -28,7 +28,7 @@ const columnSlice = createSlice({
   name: "column",
   initialState,
   reducers: {
-    updateColumn: (state, action) => {
+        updateColumn: (state, action) => {
         const {columnId, newTask} = action.payload;
         const updatedIndex = state.findIndex(c => c.id === columnId);
         return state.map((column, index) => {
@@ -39,7 +39,7 @@ const columnSlice = createSlice({
             }
         })
     },
-    updateColumnTaskOrder: (state, action) => {
+        updateColumnTaskOrder: (state, action) => {
         const {currId, newTasksIds} = action.payload;
         return state.map((column) => {
             if(column.id === currId) {
@@ -49,13 +49,31 @@ const columnSlice = createSlice({
             }
         })
     },
-      createNewColumn: (state, action) => {
+        createNewColumn: (state, action) => {
         return [...state, action.payload];
-      }
+      },
+        removeTaskFromColumn: (state, action) => {
+        const {columnId, id} = action.payload;
+        const column = state.find(col => col.id === columnId);
+        if(column) {
+            const oldIds = Array.from(column.taskIds);
+            const newIds = oldIds.filter(taskId => taskId !== id);
+            console.log(newIds);
+            return state.map(c => {
+                if(c.id === column.id) {
+                    return {...c, taskIds : [...newIds]}
+                }
+                return c
+            })
+        }
+      },
+        removeColumn: (state, action) => {
+            return state.filter(column => column.id !== action.payload)
+        }
   }
 });
 
 const columnReducer = columnSlice.reducer;
 export default columnReducer;
-export const {updateColumn, updateColumnTaskOrder, createNewColumn} = columnSlice.actions
+export const {updateColumn, updateColumnTaskOrder, createNewColumn, removeTaskFromColumn, removeColumn} = columnSlice.actions
 

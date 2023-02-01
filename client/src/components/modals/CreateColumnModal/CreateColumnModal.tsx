@@ -121,7 +121,7 @@ const CreateColumnModal = (props:CreateColumnModalProps) => {
                             <label style={{backgroundColor:`${ColumnColors.Purple}`}} className="container " htmlFor='priority-checkbox_purple'></label>
                         </div>
                     </div>
-                    {columnColor &&
+                    {columnColor && columnTitle &&
                         <div className='kanban-modal_preview'>
                             <h2 className='kanban-column_title'
                                 style={{backgroundColor: `${columnColor}`}}>

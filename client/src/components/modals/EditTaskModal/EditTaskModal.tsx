@@ -56,8 +56,6 @@ const EditTaskModal = (props:EditTaskModalProps) => {
             priority: priorityType,
             id
         }
-
-        console.log(newData);
         dispatch(updateTask(newData));
         setEditTask(false);
     }
