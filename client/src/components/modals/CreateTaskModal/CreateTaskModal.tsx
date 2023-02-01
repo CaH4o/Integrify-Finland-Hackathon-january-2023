@@ -8,6 +8,7 @@ import {addNewTask} from "../../../redux/slices/taskReducer";
 import {updateColumn} from "../../../redux/slices/columnReducer";
 import {TaskData} from "../../../utility/models";
 import {fakeUsers} from "../../../fakeData/fakeData";
+import {slackNotification} from "../../../utility/slackNotification";
 
 interface CreateTaskModalProps {
     createTask: boolean,
@@ -56,6 +57,8 @@ const CreateTaskModal = (props:CreateTaskModalProps) => {
             }
             dispatch(addNewTask(newTask));
             dispatch(updateColumn({columnId,newTask}));
+            slackNotification(newTask.title)
+                .catch(e => console.log(e));
             resetStates();
         }
     }

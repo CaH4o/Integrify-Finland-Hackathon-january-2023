@@ -5,8 +5,8 @@ import {TaskData} from "../../utility/models";
 
 const initialState: TaskData[] = [
    {id: "task-1",
-      title: "Edit text",
-      description: "Need to edit text in journal",
+      title: "Finish columns logic",
+      description: "Add create, delete, remove columns",
       priority: taskPriority.Low,
       assigned: {
           avatar: "https://ca.slack-edge.com/T7XMSNG7P-U04BXPN4HGF-452549b4d13f-512",
@@ -16,8 +16,8 @@ const initialState: TaskData[] = [
     },
     {
         id: "task-2",
-        title: "Create new topic",
-        description: "Create new topic for journal",
+        title: "Work on github sync",
+        description: "Following GitHub docs implement github sync with issue reporting",
         priority: taskPriority.High,
         assigned: {
             avatar: "https://ca.slack-edge.com/T7XMSNG7P-U04034MMT5F-db6efbd75e57-512",
