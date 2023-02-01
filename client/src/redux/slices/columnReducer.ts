@@ -48,11 +48,14 @@ const columnSlice = createSlice({
                 return column
             }
         })
-    }
+    },
+      createNewColumn: (state, action) => {
+        return [...state, action.payload];
+      }
   }
 });
 
 const columnReducer = columnSlice.reducer;
 export default columnReducer;
-export const {updateColumn, updateColumnTaskOrder} = columnSlice.actions
+export const {updateColumn, updateColumnTaskOrder, createNewColumn} = columnSlice.actions
 

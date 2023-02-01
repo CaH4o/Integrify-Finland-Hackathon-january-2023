@@ -1,30 +1,53 @@
 import '../kanban-modal.scss';
-import React, {useState} from 'react'
+import React, {FormEvent, useState} from 'react'
 import * as ReactDOM from 'react-dom';
 import {Box, Button, TextField} from "@mui/material";
 import {ColumnColors} from "../../../utility/types";
+import {ColumnData} from "../../../utility/models";
+import {useAppDispatch, useAppSelector} from "../../../hooks/reduxHooks";
+import {updateColumnOrder} from "../../../redux/slices/columnOrderReducer";
+import {createNewColumn} from "../../../redux/slices/columnReducer";
 
-interface CreateTaskModalProps {
+interface CreateColumnModalProps {
     createColumn: boolean,
     setCreateColumn:  React.Dispatch<React.SetStateAction<boolean>>,
 }
-const CreateTaskModal = (props:CreateTaskModalProps) => {
+const CreateColumnModal = (props:CreateColumnModalProps) => {
     const {createColumn, setCreateColumn} = props;
     const [columnTitle, setColumnTitle] = useState("");
     const [columnColor, setColumnColor] = useState<string>("");
+    const dispatch = useAppDispatch();
+    const order = useAppSelector(state => state.order);
 
     if(!createColumn ) return null
 
-    const handleCheckbox = () => {
-        console.log(123);
+    const handleFormSubmit = (e:FormEvent) => {
+        e.preventDefault();
+        const newColumn:ColumnData = {
+            id: String(Date.now()),
+            title: columnTitle,
+            color: columnColor,
+            taskIds: [],
+        }
+        const newOrder = [...order, newColumn.id];
+        dispatch(updateColumnOrder(newOrder));
+        dispatch(createNewColumn(newColumn));
+        resetStates();
+    }
+
+    const resetStates = () => {
+        setColumnTitle("");
+        setColumnColor("");
+        setCreateColumn(false);
     }
 
     return ReactDOM.createPortal(
         <>
-            <div className='kanban-modal_overlay' onClick={() => setCreateColumn(false)}></div>
+            <div className='kanban-modal_overlay' onClick={() => resetStates()}></div>
             <div className='kanban-modal'>
                 <h1>Create Column</h1>
                 <Box component="form"
+                     onSubmit = {(e:FormEvent) => handleFormSubmit(e)}
                      className='kanban-modal_form'
                      sx={{
                          '& > :not(style)': { m: 1, width: '25ch' },
@@ -98,22 +121,22 @@ const CreateTaskModal = (props:CreateTaskModalProps) => {
                             <label style={{backgroundColor:`${ColumnColors.Purple}`}} className="container " htmlFor='priority-checkbox_purple'></label>
                         </div>
                     </div>
-                </Box>
-                <div className='kanban-modal_preview'>
-                    <h2 className='kanban-column_title'
-                        style={{backgroundColor: `${columnColor}`}}>
-                        {columnTitle}
-                    </h2>
-                </div>
+                    {columnColor &&
+                        <div className='kanban-modal_preview'>
+                            <h2 className='kanban-column_title'
+                                style={{backgroundColor: `${columnColor}`}}>
+                                {columnTitle}
+                            </h2>
+                        </div>}
                 <div className='kanban-modal_buttons'>
-                    <Button onClick={() => setCreateColumn(false)} variant="outlined">Close</Button>
-                    <Button variant="contained">Create</Button>
+                    <Button onClick={() => resetStates()} variant="outlined">Close</Button>
+                    <Button variant="contained" type='submit'>Create</Button>
                 </div>
-
+                </Box>
             </div>
         </>,
         document.getElementById('modal')!
     )
 }
 
-export default CreateTaskModal;
+export default CreateColumnModal;

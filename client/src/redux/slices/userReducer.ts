@@ -5,7 +5,7 @@ import { TaskPersonData, UserState } from "../../utility/models";
 
 const initialState: UserState = {
   avatar: "",
-  name: "",
+  name: "", id: 0,
   error: false,
   loading: false,
   authentication: false,

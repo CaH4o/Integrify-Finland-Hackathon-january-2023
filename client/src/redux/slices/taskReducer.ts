@@ -9,32 +9,43 @@ const initialState: TaskData[] = [
       description: "Need to edit text in journal",
       priority: taskPriority.Low,
       assigned: {
-    avatar: "./photo-1438761681033-6461ffad8d80.jpg",
-        name: "Adam Sandler",},
-},
-   {id: "task-2",
+          avatar: "https://ca.slack-edge.com/T7XMSNG7P-U04BXPN4HGF-452549b4d13f-512",
+          name: "Roman Demianchuk",
+          id: 4,
+      },
+    },
+    {
+        id: "task-2",
         title: "Create new topic",
         description: "Create new topic for journal",
         priority: taskPriority.High,
         assigned: {
-      avatar: "./photo-1438761681033-6461ffad8d80.jpg",
-          name: "Adam Sandler",},
-  },
-   {id: "task-3",
+            avatar: "https://ca.slack-edge.com/T7XMSNG7P-U04034MMT5F-db6efbd75e57-512",
+            name: "Oleksandr Tertyshnyk",
+            id: 5,
+        },
+    },
+   {
+       id: "task-3",
         title: "Test features",
         description: "Test some features",
         priority: taskPriority.Medium,
         assigned: {
-      avatar: "./photo-1438761681033-6461ffad8d80.jpg",
-          name: "Adam Sandler",},
-  },
-   {id: "task-4",
+            avatar: "https://ca.slack-edge.com/T7XMSNG7P-U03RLPAAXGW-8145e1f4f722-512",
+            name: "Ronja Pietrzykowska",
+            id: 2,
+        },
+   },
+   {
+       id: "task-4",
         title: "Create new topic",
         description: "Create new topic for journal",
         priority: taskPriority.Low,
         assigned: {
-      avatar: "./photo-1438761681033-6461ffad8d80.jpg",
-          name: "Adam Sandler",},
+            avatar: "https://ca.slack-edge.com/T7XMSNG7P-U01QWRBQ7B5-fb9d1b015d81-512",
+            name: "Yasser Shalash",
+            id: 3,
+        },
   },
    {
     id: "task-5",
@@ -42,9 +53,10 @@ const initialState: TaskData[] = [
         description: "Need to edit text in journal",
         priority: taskPriority.High,
         assigned: {
-      avatar: "./photo-1438761681033-6461ffad8d80.jpg",
-          name: "Adam Sandler",
-    },
+            avatar: "./photo-1438761681033-6461ffad8d80.jpg",
+            name: "Adam Sandler",
+            id: 1,
+        },
   },
    {
     id: "task-6",
@@ -52,9 +64,10 @@ const initialState: TaskData[] = [
         description: "Create new topic for journal",
         priority: taskPriority.High,
         assigned: {
-      avatar: "./photo-1438761681033-6461ffad8d80.jpg",
-          name: "Adam Sandler",
-    },
+            avatar: "https://ca.slack-edge.com/T7XMSNG7P-U01QWRBQ7B5-fb9d1b015d81-512",
+            name: "Yasser Shalash",
+            id: 3,
+        },
   },
 ];
 
@@ -66,7 +79,15 @@ const taskSlice = createSlice({
         return [...state, action.payload]
       },
       removeTask: (state, action) => {
-        console.log(action)
+        return state.filter(task => task.id !== action.payload)
+      },
+      updateTask: (state, action) => {
+        return state.map(task => {
+            if(task.id === action.payload.id) {
+                return action.payload
+            }
+            return task;
+        })
       }
   },
 });
@@ -74,5 +95,5 @@ const taskSlice = createSlice({
 const taskReducer = taskSlice.reducer;
 export default taskReducer;
 
-export const { addNewTask } = taskSlice.actions;
+export const { addNewTask, updateTask} = taskSlice.actions;
 

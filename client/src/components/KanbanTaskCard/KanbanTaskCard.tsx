@@ -42,7 +42,7 @@ const KanbanTaskCard = (props: KanbanTaskCardProps) => {
                         </div>
                         <div className='kanban-task_item kanban-task_item-description'>
                             {/*<h4>Description</h4>*/}
-                            <p>{description}.</p>
+                            <p>{description}</p>
                         </div>
                         <div className='kanban-task_item'>
                             {/*<h4>Assigned</h4>*/}

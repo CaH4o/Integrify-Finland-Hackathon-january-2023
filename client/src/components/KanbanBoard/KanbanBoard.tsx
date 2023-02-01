@@ -1,8 +1,7 @@
 import './kanbanboard.scss';
 import KanbanColumn from "../KanbanColumn/KanbanColumn";
 import {Button} from "@mui/material";
-import {DragDropContext, Droppable, OnDragEndResponder} from "react-beautiful-dnd";
-import fakeData from "../../fakeData/fakeData";
+import {DragDropContext, Droppable} from "react-beautiful-dnd";
 import {ColumnData, TaskData} from "../../utility/models";
 import {useState} from "react";
 import React from 'react';
@@ -26,12 +25,10 @@ interface DragDestinationResult {
 const KanbanBoard = () => {
     const [createColumn, setCreateColumn] = useState(false);
     const dispatch = useAppDispatch();
-    const [data, setData] = useState(fakeData);
     const allColumns = useAppSelector(state => state.column);
     const allTasks = useAppSelector(state => state.task);
     const order = useAppSelector(state => state.order)
 
-    console.log(order);
     const onDragEnd = (result:any) => {
         const {destination, source, draggableId, type} = result;
 
@@ -76,7 +73,6 @@ const KanbanBoard = () => {
                 newTasksIds.splice(destination.index, 0, draggableId);
                 currId = finish.id;
                 dispatch(updateColumnTaskOrder({currId, newTasksIds}))
-
             }
         }
     }

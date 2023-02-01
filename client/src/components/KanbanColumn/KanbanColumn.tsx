@@ -9,7 +9,7 @@ import React, {useState} from "react";
 import CreateTaskModal from "../modals/CreateTaskModal/CreateTaskModal";
 
 interface KanbanColumnProps {
-    color: ColumnColors,
+    color: string,
     title: string,
     tasks: TaskData[],
     id: string,

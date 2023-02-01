@@ -1,12 +1,13 @@
 import '../kanban-modal.scss';
 import React, { FormEvent, useState} from 'react'
 import * as ReactDOM from 'react-dom';
-import {Box, Button, TextField} from "@mui/material";
+import {Box, Button, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {taskPriority} from "../../../utility/TaskPriorities";
 import {useAppDispatch} from "../../../hooks/reduxHooks";
 import {addNewTask} from "../../../redux/slices/taskReducer";
 import {updateColumn} from "../../../redux/slices/columnReducer";
 import {TaskData} from "../../../utility/models";
+import {fakeUsers} from "../../../fakeData/fakeData";
 
 interface CreateTaskModalProps {
     createTask: boolean,
@@ -19,6 +20,7 @@ const CreateTaskModal = (props:CreateTaskModalProps) => {
     const [priorityType, setPriorityType] = useState(taskPriority.Low);
     const [taskTitle, setTaskTitle] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
+    const [assignedId, setAssignedId] = useState<number>(1);
 
     if(!createTask ) return null
 
@@ -36,19 +38,26 @@ const CreateTaskModal = (props:CreateTaskModalProps) => {
 
     const handleFormSubmit = (e:FormEvent) => {
         e.preventDefault();
-        const newTask:TaskData = {
-            id: String(Date.now()),
-            title: taskTitle,
-            description: taskDescription,
-            priority: priorityType,
-            assigned: {
-                avatar: "./photo-1438761681033-6461ffad8d80.jpg",
-                name: 'any'
+        const user = fakeUsers.find(item => item.id === assignedId)
+
+        if(!user || !taskDescription || !taskTitle) {
+            return
+        } else {
+            const newTask:TaskData = {
+                id: String(Date.now()),
+                title: taskTitle,
+                description: taskDescription,
+                priority: priorityType,
+                assigned: {
+                    avatar: user.avatar,
+                    name: user.name,
+                    id: user.id,
+                }
             }
+            dispatch(addNewTask(newTask));
+            dispatch(updateColumn({columnId,newTask}));
+            resetStates();
         }
-        dispatch(addNewTask(newTask));
-        dispatch(updateColumn({columnId,newTask}));
-        resetStates();
     }
 
     const resetStates = () => {
@@ -60,7 +69,7 @@ const CreateTaskModal = (props:CreateTaskModalProps) => {
 
     return ReactDOM.createPortal(
         <>
-            <div className='kanban-modal_overlay' onClick={() => setCreateTask(false)}></div>
+            <div className='kanban-modal_overlay' onClick={() => resetStates()}></div>
             <div className='kanban-modal'>
                 <h1>Create Task</h1>
                 <Box component="form"
@@ -72,9 +81,10 @@ const CreateTaskModal = (props:CreateTaskModalProps) => {
                      noValidate
                      autoComplete="off"
                 >
-                    <TextField id="outlined-basic" label="Title" variant="outlined" defaultValue={taskTitle} onChange={(e) => setTaskTitle(e.target.value)}/>
+                    <TextField required id="outlined-basic" label="Title" variant="outlined" defaultValue={taskTitle} onChange={(e) => setTaskTitle(e.target.value)}/>
                     <TextField
                         id="outlined-multiline-static"
+                        required
                         label="Description"
                         multiline
                         rows={3}
@@ -110,22 +120,25 @@ const CreateTaskModal = (props:CreateTaskModalProps) => {
                             <label style={{backgroundColor:"#EB57574f", color: "#EB5757"}} className="container" htmlFor='priority-checkbox_high'>High</label>
                         </div>
                     </div>
-                    {/*<FormControl className='kanban-modal_dropdown'>*/}
-                    {/*    <InputLabel id="demo-simple-select-label">Assigned</InputLabel>*/}
-                    {/*    /!*<Select*!/*/}
-                    {/*    /!*    labelId="demo-simple-select-label"*!/*/}
-                    {/*    /!*    id="demo-simple-select"*!/*/}
-                    {/*    /!*    // value={taskAssigned!.name}*!/*/}
-                    {/*    /!*    label="Assigned"*!/*/}
-                    {/*    /!*    onChange={(e:any) => updateDropDownMenu(e)}*!/*/}
-                    {/*    /!*>*!/*/}
-                    {/*    /!*    /!*<MenuItem value={taskAssigned.name}>{taskAssigned!.name}</MenuItem>*!/*!/*/}
-                    {/*    /!*    <MenuItem value={"Boris"}>Boris</MenuItem>*!/*/}
-                    {/*    /!*</Select>*!/*/}
-                    {/*</FormControl>*/}
+                    <FormControl className='kanban-modal_dropdown' required>
+                        <InputLabel id="demo-simple-select-label">Assigned</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={assignedId}
+                            label="Assigned"
+                            onChange={(e) => setAssignedId(Number(e.target.value))}
+                        >
+                            {fakeUsers.map((item, index) => {
+                                console.log(item.id)
+                                return <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
+                            })}
+
+                        </Select>
+                    </FormControl>
 
                 <div className='kanban-modal_buttons'>
-                    <Button onClick={() => setCreateTask(false)} variant="outlined">Close</Button>
+                    <Button onClick={() => resetStates()} variant="outlined">Close</Button>
                     <Button variant="contained" type='submit'>Create</Button>
                 </div>
                 </Box>

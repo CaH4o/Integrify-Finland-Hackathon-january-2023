@@ -59,6 +59,7 @@
   &_buttons {
     display: flex;
     margin-top: 15px;
+    justify-content: center;
 
     & button:first-child {
       margin-right: 20px;

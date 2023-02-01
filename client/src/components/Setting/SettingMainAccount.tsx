@@ -7,6 +7,7 @@ export default function SettingMainAccount(): JSX.Element {
   const [personData, setPersonData] = useState<TaskPersonData>({
     avatar: "",
     name: "",
+      id: 0,
   });
 
   function handleChange(
@@ -25,6 +26,7 @@ export default function SettingMainAccount(): JSX.Element {
     const resetData: TaskPersonData = {
       avatar: "",
       name: "",
+      id: 0,
     };
     setPersonData(resetData);
   }

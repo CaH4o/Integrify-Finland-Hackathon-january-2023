@@ -19,7 +19,7 @@ export interface ColumnData {
   id: string;
   title: string;
   taskIds: string[];
-  color: ColumnColors;
+  color: string;
 }
 
 export interface TaskData {
@@ -31,8 +31,9 @@ export interface TaskData {
 }
 
 export interface TaskPersonData {
-  avatar: string;
-  name: string;
+  avatar: string,
+  name: string,
+  id : number,
 }
 
 export interface Priority {
