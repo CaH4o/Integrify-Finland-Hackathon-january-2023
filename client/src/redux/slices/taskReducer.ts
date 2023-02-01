@@ -1,53 +1,78 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { TaskData } from "../../utility/models";
-import { Tasks } from "../../utility/types";
+import {taskPriority} from "../../utility/TaskPriorities";
+import {TaskData} from "../../utility/models";
 
-const initialState: Tasks = [];
+const initialState: TaskData[] = [
+   {id: "task-1",
+      title: "Edit text",
+      description: "Need to edit text in journal",
+      priority: taskPriority.Low,
+      assigned: {
+    avatar: "./photo-1438761681033-6461ffad8d80.jpg",
+        name: "Adam Sandler",},
+},
+   {id: "task-2",
+        title: "Create new topic",
+        description: "Create new topic for journal",
+        priority: taskPriority.High,
+        assigned: {
+      avatar: "./photo-1438761681033-6461ffad8d80.jpg",
+          name: "Adam Sandler",},
+  },
+   {id: "task-3",
+        title: "Test features",
+        description: "Test some features",
+        priority: taskPriority.Medium,
+        assigned: {
+      avatar: "./photo-1438761681033-6461ffad8d80.jpg",
+          name: "Adam Sandler",},
+  },
+   {id: "task-4",
+        title: "Create new topic",
+        description: "Create new topic for journal",
+        priority: taskPriority.Low,
+        assigned: {
+      avatar: "./photo-1438761681033-6461ffad8d80.jpg",
+          name: "Adam Sandler",},
+  },
+   {
+    id: "task-5",
+        title: "Edit text",
+        description: "Need to edit text in journal",
+        priority: taskPriority.High,
+        assigned: {
+      avatar: "./photo-1438761681033-6461ffad8d80.jpg",
+          name: "Adam Sandler",
+    },
+  },
+   {
+    id: "task-6",
+        title: "Create new topic",
+        description: "Create new topic for journal",
+        priority: taskPriority.High,
+        assigned: {
+      avatar: "./photo-1438761681033-6461ffad8d80.jpg",
+          name: "Adam Sandler",
+    },
+  },
+];
 
 const taskSlice = createSlice({
   name: "task",
   initialState,
   reducers: {
-    createTask: function (state: Tasks, action: PayloadAction<TaskData>) {
-      return [action.payload, ...state];
-    },
-    deleteTask: function (state: Tasks, action: PayloadAction<TaskData>) {
-      return state.filter(function (t: TaskData) {
-        return t.id !== action.payload.id;
-      });
-    },
-    updateTask: function (state: Tasks, action: PayloadAction<TaskData>) {
-      return state.map(function (t: TaskData) {
-        return t.id !== action.payload.id ? t : action.payload;
-      });
-    },
-    upTask: function (state: Tasks, action: PayloadAction<TaskData>) {
-      const index: number = state.findIndex(function (t: TaskData) {
-        return t.id === action.payload.id;
-      });
-
-      if (index) {
-        const tasks: Tasks = JSON.parse(JSON.stringify(state));
-        [tasks[index - 1], tasks[index]] = [tasks[index], tasks[index - 1]];
-        return tasks;
+      addNewTask: (state, action) => {
+        return [...state, action.payload]
+      },
+      removeTask: (state, action) => {
+        console.log(action)
       }
-    },
-    downTask: function (state: Tasks, action: PayloadAction<TaskData>) {
-      const index: number = state.findIndex(function (t: TaskData) {
-        return t.id === action.payload.id;
-      });
-
-      if (index < state.length - 1) {
-        const tasks: Tasks = JSON.parse(JSON.stringify(state));
-        [tasks[index + 1], tasks[index]] = [tasks[index], tasks[index + 1]];
-        return tasks;
-      }
-    },
   },
 });
 
 const taskReducer = taskSlice.reducer;
 export default taskReducer;
-export const { createTask, deleteTask, updateTask, upTask, downTask } =
-  taskSlice.actions;
+
+export const { addNewTask } = taskSlice.actions;
+

@@ -1,24 +1,28 @@
 import '../kanban-modal.scss';
-import React, {ChangeEvent, FormEvent, useState} from 'react'
+import React, { FormEvent, useState} from 'react'
 import * as ReactDOM from 'react-dom';
-import {Box, Button, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
+import {Box, Button, TextField} from "@mui/material";
 import {taskPriority} from "../../../utility/TaskPriorities";
+import {useAppDispatch} from "../../../hooks/reduxHooks";
+import {addNewTask} from "../../../redux/slices/taskReducer";
+import {updateColumn} from "../../../redux/slices/columnReducer";
+import {TaskData} from "../../../utility/models";
 
 interface CreateTaskModalProps {
     createTask: boolean,
+    columnId: string,
     setCreateTask:  React.Dispatch<React.SetStateAction<boolean>>,
 }
 const CreateTaskModal = (props:CreateTaskModalProps) => {
-    const {createTask, setCreateTask} = props;
-
+    const {createTask, setCreateTask, columnId} = props;
+    const dispatch = useAppDispatch();
     const [priorityType, setPriorityType] = useState(taskPriority.Low);
     const [taskTitle, setTaskTitle] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
-    const [taskAssigned, setTaskAssigned] = useState("");
 
     if(!createTask ) return null
 
-
+    console.log(columnId);
     const updateDropDownMenu = (event:any) => {
         console.log(event.target.value);
         /*
@@ -30,12 +34,37 @@ const CreateTaskModal = (props:CreateTaskModalProps) => {
       setPriorityType(task);
     }
 
+    const handleFormSubmit = (e:FormEvent) => {
+        e.preventDefault();
+        const newTask:TaskData = {
+            id: String(Date.now()),
+            title: taskTitle,
+            description: taskDescription,
+            priority: priorityType,
+            assigned: {
+                avatar: "./photo-1438761681033-6461ffad8d80.jpg",
+                name: 'any'
+            }
+        }
+        dispatch(addNewTask(newTask));
+        dispatch(updateColumn({columnId,newTask}));
+        resetStates();
+    }
+
+    const resetStates = () => {
+        setTaskDescription("");
+        setTaskTitle("");
+        setPriorityType(taskPriority.Low);
+        setCreateTask(false);
+    }
+
     return ReactDOM.createPortal(
         <>
             <div className='kanban-modal_overlay' onClick={() => setCreateTask(false)}></div>
             <div className='kanban-modal'>
                 <h1>Create Task</h1>
                 <Box component="form"
+                     onSubmit={(e) => handleFormSubmit(e)}
                      className='kanban-modal_form'
                      sx={{
                          '& > :not(style)': { m: 1, width: '25ch' },
@@ -43,12 +72,13 @@ const CreateTaskModal = (props:CreateTaskModalProps) => {
                      noValidate
                      autoComplete="off"
                 >
-                    <TextField id="outlined-basic" label="Title" variant="outlined" defaultValue={taskTitle}/>
+                    <TextField id="outlined-basic" label="Title" variant="outlined" defaultValue={taskTitle} onChange={(e) => setTaskTitle(e.target.value)}/>
                     <TextField
                         id="outlined-multiline-static"
                         label="Description"
                         multiline
                         rows={3}
+                        onChange={(e) => setTaskDescription(e.target.value)}
                         defaultValue={taskDescription}
                     />
                     <div className='kanban-modal_form-checkbox'>
@@ -93,12 +123,12 @@ const CreateTaskModal = (props:CreateTaskModalProps) => {
                     {/*    /!*    <MenuItem value={"Boris"}>Boris</MenuItem>*!/*/}
                     {/*    /!*</Select>*!/*/}
                     {/*</FormControl>*/}
-                </Box>
+
                 <div className='kanban-modal_buttons'>
                     <Button onClick={() => setCreateTask(false)} variant="outlined">Close</Button>
-                    <Button variant="contained">Create</Button>
+                    <Button variant="contained" type='submit'>Create</Button>
                 </div>
-
+                </Box>
             </div>
         </>,
         document.getElementById('modal')!

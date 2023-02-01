@@ -6,9 +6,10 @@ import fakeData from "../../fakeData/fakeData";
 import {ColumnData, TaskData} from "../../utility/models";
 import {useState} from "react";
 import React from 'react';
-import EditTaskModal from "../modals/EditTaskModal/EditTaskModal";
-import CreateTaskModal from "../modals/CreateTaskModal/CreateTaskModal";
 import CreateColumnModal from "../modals/CreateColumnModal/CreateColumnModal";
+import {useAppDispatch, useAppSelector} from "../../hooks/reduxHooks";
+import {updateColumnTaskOrder} from "../../redux/slices/columnReducer";
+import {updateColumnOrder} from "../../redux/slices/columnOrderReducer";
 
 interface DragResult {
     draggableId: string,
@@ -24,11 +25,13 @@ interface DragDestinationResult {
 }
 const KanbanBoard = () => {
     const [createColumn, setCreateColumn] = useState(false);
-
+    const dispatch = useAppDispatch();
     const [data, setData] = useState(fakeData);
-    const allColumns = data.columns;
-    const allTasks = data.tasks;
+    const allColumns = useAppSelector(state => state.column);
+    const allTasks = useAppSelector(state => state.task);
+    const order = useAppSelector(state => state.order)
 
+    console.log(order);
     const onDragEnd = (result:any) => {
         const {destination, source, draggableId, type} = result;
 
@@ -41,65 +44,39 @@ const KanbanBoard = () => {
         }
 
         if(type === 'column') {
-            const newColumnOrder = Array.from(data.columnOrder);
+            const newColumnOrder = Array.from(order);
             newColumnOrder.splice(source.index, 1);
             newColumnOrder.splice(destination.index,0, draggableId);
 
-            const newState = {
-                ...data,
-                columnOrder: newColumnOrder,
-            };
-            setData(newState);
+            dispatch(updateColumnOrder(newColumnOrder))
             return;
         }
         else if(type === 'task') {
-            const start = allColumns[source.droppableId];
-            const finish = allColumns[destination.droppableId];
+            const start = allColumns.find(col => source.droppableId === col.id);
+            const finish = allColumns.find(col => destination.droppableId === col.id);
 
             //SAME COLUMN
-            if(start === finish) {
+            if(start === finish && start) {
                 const newTasksIds = Array.from(start.taskIds);
+                console.log(newTasksIds);
                 newTasksIds.splice(source.index, 1);
                 newTasksIds.splice(destination.index, 0, draggableId);
-
-                const newColumn = {
-                    ...start,
-                    taskIds: newTasksIds,
-                };
-
-                const newData = {
-                    ...data,
-                    columns: {
-                        ...data.columns,
-                        [newColumn.id]: newColumn,
-                    },
-                };
-                setData(newData);
+                const currId = start.id
+                dispatch(updateColumnTaskOrder({currId, newTasksIds}))
             }
-            //DIFFERENT COLUMN
-            else {
-                const startTaskIds = Array.from(start.taskIds);
-                startTaskIds.splice(source.index, 1);
-                const newStart = {
-                    ...start,
-                    taskIds: startTaskIds,
-                };
-                const finishTaskIds = Array.from(finish.taskIds);
-                finishTaskIds.splice(destination.index, 0, draggableId);
-                const newFinish = {
-                    ...finish,
-                    taskIds: finishTaskIds
-                };
 
-                const newState = {
-                    ...data,
-                    columns: {
-                        ...data.columns,
-                        [newStart.id] : newStart,
-                        [newFinish.id] : newFinish,
-                    }
-                };
-                setData(newState);
+            //DIFFERENT COLUMN
+            else if (start !== finish && start && finish) {
+                let newTasksIds = Array.from(start.taskIds);
+                newTasksIds.splice(source.index, 1);
+                let currId = start.id;
+                dispatch(updateColumnTaskOrder({currId, newTasksIds}))
+
+                newTasksIds = Array.from(finish.taskIds);
+                newTasksIds.splice(destination.index, 0, draggableId);
+                currId = finish.id;
+                dispatch(updateColumnTaskOrder({currId, newTasksIds}))
+
             }
         }
     }
@@ -115,9 +92,13 @@ const KanbanBoard = () => {
                         <div className='kanban-board'
                              ref={provided.innerRef}
                              {...provided.droppableProps}>
-                            {data.columnOrder.map((columnId, index) => {
-                                const column:ColumnData = allColumns[columnId];
-                                const tasks:TaskData[] = column.taskIds.map((taskId:string) => allTasks[taskId]);
+                            {order.map((columnId, index) => {
+                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                // @ts-ignore
+                                const column:ColumnData = allColumns.find(column => column.id === columnId);
+                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                // @ts-ignore
+                                const tasks:TaskData[] = column.taskIds.map((taskId:string) => allTasks.find(task => task.id === taskId));
 
                                 return <KanbanColumn index={index} color={column.color} title={column.title} tasks={tasks} key={column.id} id={column.id}/>
                             })}

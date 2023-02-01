@@ -33,15 +33,15 @@ const KanbanColumn = (props:KanbanColumnProps) => {
                             style={{backgroundColor: `${color}`}}>
                             {title}
                         </h2>
-                        {index===0 &&
-                            <Button variant="outlined" className='kanban-column_btn' onClick={() => setCreateTask(true)}>
-                                Add Task
-                                <AddIcon/>
-                            </Button>}
+                        <Button variant="outlined" className='kanban-column_btn' onClick={() => setCreateTask(true)}>
+                            Add Task
+                            <AddIcon/>
+                        </Button>
                         <Droppable droppableId={id} type='task'>
                             {(provided) => (
                                 <div className='kanban-column_task-list' ref={provided.innerRef} {...provided.droppableProps}>
                                     {tasks.map((task, index) => {
+
                                         const {id} = task;
                                         return <KanbanTaskCard key={id} data={task} index={index}/>})
                                     }
@@ -52,7 +52,7 @@ const KanbanColumn = (props:KanbanColumnProps) => {
                     </div>
                 )}
             </Draggable>
-            <CreateTaskModal createTask={createTask} setCreateTask={setCreateTask}/>
+            <CreateTaskModal createTask={createTask} columnId={props.id} setCreateTask={setCreateTask}/>
         </>
     )
 }
