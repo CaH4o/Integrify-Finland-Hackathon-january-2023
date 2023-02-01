@@ -21,6 +21,7 @@ export interface ColumnData {
 }
 
 export interface GithubIssue {
+  id: number;
   html_url: string;
   title: string;
   state: string;

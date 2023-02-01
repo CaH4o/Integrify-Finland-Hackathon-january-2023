@@ -1,41 +1,53 @@
 import React from "react";
 import SyncIcon from "@mui/icons-material/Sync";
 
+import { RootState } from "../../redux/store";
 import { GithubIssue, TaskData, TaskPersonData } from "../../utility/models";
 import { GithubIssues as Issues, Tasks } from "../../utility/types";
 import useFetch from "../../hooks/useFetch";
-import { useAppDispatch } from "../../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { addNewTask } from "../../redux/slices/taskReducer";
 import { taskPriority } from "../../utility/TaskPriorities";
 import { updateColumn } from "../../redux/slices/columnReducer";
 
 export default function GithubIssues(): JSX.Element {
   const dispatch = useAppDispatch();
+  const tasks: Tasks = useAppSelector(function (state: RootState) {
+    return state.task;
+  });
 
   async function handleClick() {
     const githubIssuesUrl =
       "https://api.github.com/repos/CaH4o/Integrify-Finland-Hackathon-january-2023/issues";
     const issues: Issues = await useFetch<Issues>(githubIssuesUrl);
-    const tasks: Tasks = [];
+    const addedTasks: Tasks = [];
 
     issues.forEach(function (i: GithubIssue) {
       const user: TaskPersonData = {
-        avatar: "https://ca.slack-edge.com/T7XMSNG7P-UBZDE3Z0R-ed3bd1625e6a-72",
-        name: "Yazan",
+        avatar:
+          "https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/github-512.png",
+        name: "GitHub",
         id: 0,
       };
+
       const task: TaskData = {
         assigned: user,
         description: i.body,
-        id: "task-".concat((Math.random() * 100).toString()),
+        id: "task-" + i.id.toString(),
         priority: taskPriority.Medium,
         title: i.title,
       };
 
-      tasks.push(task);
+      const find: number = tasks.findIndex(function (t: TaskData) {
+        return t.id === task.id;
+      });
+
+      if (find === -1) {
+        addedTasks.push(task);
+      }
     });
 
-    tasks.forEach(function (t: TaskData) {
+    addedTasks.forEach(function (t: TaskData) {
       dispatch(addNewTask(t));
       dispatch(updateColumn({ columnId: "column-1", newTask: t }));
     });
