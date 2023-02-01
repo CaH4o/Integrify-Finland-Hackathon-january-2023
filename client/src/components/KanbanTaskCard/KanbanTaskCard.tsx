@@ -5,6 +5,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import KanbanTaskCardPerson from "./KanbanTaskCardPerson/KanbanTaskCardPerson";
 import React, {useState} from 'react';
 import EditTaskModal from "../modals/EditTaskModal/EditTaskModal";
+import DoneIcon from '@mui/icons-material/Done';
+import {useAppDispatch} from "../../hooks/reduxHooks";
+import {removeTask} from "../../redux/slices/taskReducer";
+import {removeTaskFromColumn} from "../../redux/slices/columnReducer";
 
 interface KanbanTaskCardProps {
     data : {
@@ -14,14 +18,23 @@ interface KanbanTaskCardProps {
         priority: Priority,
         assigned: TaskPersonData,
     },
-    index: number
+    index: number,
+    columnId: string
 }
 const KanbanTaskCard = (props: KanbanTaskCardProps) => {
-    const {index} = props;
+    const {index, columnId} = props;
+    const dispatch = useAppDispatch();
     const [editTask, setEditTask] = useState(false);
 
     const {id, title, assigned, description, priority} = props.data;
     // style={{border: `1px solid ${priority.color}`}} - for borders ??
+
+    const permanentlyRemoveTask = () => {
+        console.log(columnId);
+        dispatch(removeTask(id));
+        dispatch(removeTaskFromColumn({columnId,id}))
+    }
+
     return (
         <>
             <Draggable draggableId={id} index={index}>
@@ -32,7 +45,10 @@ const KanbanTaskCard = (props: KanbanTaskCardProps) => {
                          {...provided.draggableProps}
                          {...provided.dragHandleProps}
                     >
-                        <EditIcon className='kanban-task_edit' onClick={() => setEditTask(true)}/>
+                        <div className='kanban-task_icons'>
+                            <DoneIcon onClick={() => permanentlyRemoveTask()}/>
+                            <EditIcon className='kanban-task_edit' onClick={() => setEditTask(true)}/>
+                        </div>
                         <span
                             style={{backgroundColor: `${priority.color}`}}
                             className='kanban-task_item-priority'></span>

@@ -23,18 +23,26 @@
     display: none;
   }
 
-  &_edit {
+  &_icons {
     position: absolute;
     top: 8px;
     right: 15px;
-    fill: rgba(79, 79, 79, 0.35)!important;
-    cursor: pointer;
-    font-size: 28px!important;
-    transition: all .1s linear;
 
-    &:hover {
-      fill: variables.$main-dark-grey!important;
+    & svg {
+      cursor: pointer;
+      font-size: 28px!important;
+      fill: rgba(79, 79, 79, 0.35)!important;
+      transition: all .1s linear;
+
+      &:hover {
+        fill: variables.$main-dark-grey!important;
+      }
+
+      &:first-child {
+        margin-right: 5px;
+      }
     }
+
   }
   &_item {
     display: flex;
